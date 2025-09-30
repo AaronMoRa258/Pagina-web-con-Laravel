@@ -1,0 +1,82 @@
+@media (max-width: 1080px) and (min-width: 961px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.page-Name {
+    width: 40% !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 960px) and (min-width: 721px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.page-Name {
+    width: 40% !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 720px) and (min-width: 645px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.page-Name {
+    width: 30% !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 644px) and (min-width: 481px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.header-Elements-Container {
+    gap: 0.1rem !important;
+}
+
+.page-Name {
+    display: none;
+}
+
+.search {
+    width: 48%;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+footer h5, header h1, nav a {
+    font-size: 1.1rem !important;
+}
+
+}
+
+@media (max-width: 480px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.header-Elements-Container {
+    gap: 0.1rem !important;
+}
+
+.page-Name {
+    display: none;
+}
+
+.search {
+    width: 45%;
+}
+
+/*---------- ID */
+#user-Name {
+    display: none;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+footer h5, header h1, nav a {
+    font-size: 1.1rem !important;
+}
+
+}

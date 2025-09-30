@@ -1,0 +1,47 @@
+@media (max-width: 1080px) and (min-width: 961px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.content {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 960px) and (min-width: 721px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.content {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 720px) and (min-width: 481px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.content {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 480px) {
+/*---------- ETIQUETAS */
+/*---------- CLASES */
+.content {
+    grid-template-columns: 1fr !important;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+.content article {
+    width: fit-content;
+}
+
+}

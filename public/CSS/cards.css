@@ -1,0 +1,51 @@
+/*---------- ETIQUETAS */
+:root {
+    /*Botones*/
+    --bg-button: rgb(0, 140, 140);
+    --bg-button-hover: rgb(0, 70, 70);
+
+    /*Elementos*/
+    --bg-body: rgb(25, 25, 25);
+    --bg-card: rgb(0, 90, 90);
+    --bg-main: rgb(0, 50, 50);
+
+    /*Texto*/
+    --dark-color: rgb(0, 0, 0);
+    --light-color: rgb(255, 255, 255);
+    --link-color: rgb(0, 220, 220);
+}
+
+/*---------- CLASES */
+.image-Card {
+    height: 50vh;
+    mask: url('/Mask.svg') no-repeat left bottom/cover;
+    max-width: 250px;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+    -webkit-mask: url('/Mask.svg') no-repeat left bottom /cover;
+}
+
+.type {
+    background-color: var(--bg-main);
+    border-radius: 10px;
+    bottom: 0%;
+    color: var(--light-color);
+    height: 11.8%;
+    left: 0%;
+    padding: 0.3rem 0.6rem !important;
+    position: absolute;
+    width: fit-content;
+}
+
+.type-Image-Card {
+    position: relative;
+}
+
+/*---------- ID */
+/*---------- COMBINADOS Y PSEUDOCLASES */
+.image-Card img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}

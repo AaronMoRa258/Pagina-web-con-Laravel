@@ -1,0 +1,79 @@
+@media (max-width: 720px) and (min-width: 661px) {
+/*---------- ETIQUETAS */
+aside {
+    grid-area: 3 / 1 / 3 / 3;
+    margin-left: 1.5rem !important;
+}
+
+/*---------- CLASES */
+.chapters-List {
+    grid-template-columns: repeat(14, 1fr);
+}
+
+/*---------- ID */
+#main {
+    grid-area: 2 / 1 / 2 / 3;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 660px) and (min-width: 601px) {
+/*---------- ETIQUETAS */
+aside {
+    grid-area: 3 / 1 / 3 / 3;
+    margin-left: 1.5rem !important;
+}
+
+/*---------- CLASES */
+.chapters-List {
+    grid-template-columns: repeat(13, 1fr);
+}
+
+/*---------- ID */
+#main {
+    grid-area: 2 / 1 / 2 / 3;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 600px) and (min-width: 511px) {
+/*---------- ETIQUETAS */
+aside {
+    grid-area: 3 / 1 / 3 / 3;
+    margin-left: 1.5rem !important;
+}
+
+/*---------- CLASES */
+.chapters-List {
+    grid-template-columns: repeat(11, 1fr);
+}
+
+/*---------- ID */
+#main {
+    grid-area: 2 / 1 / 2 / 3;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}
+
+@media (max-width: 540px) {
+/*---------- ETIQUETAS */
+aside {
+    grid-area: 3 / 1 / 3 / 3;
+    margin-left: 1.5rem !important;
+}
+
+/*---------- CLASES */
+.chapters-List {
+    grid-template-columns: repeat(9, 1fr);
+}
+
+/*---------- ID */
+#main {
+    grid-area: 2 / 1 / 2 / 3;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+}

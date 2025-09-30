@@ -1,0 +1,169 @@
+/*---------- ETIQUETAS */
+:root {
+    /*Botones*/
+    --bg-button: rgb(0, 140, 140);
+    --bg-button-hover: rgb(0, 70, 70);
+
+    /*Elementos*/
+    --bg-body: rgb(25, 25, 25);
+    --bg-card: rgb(0, 90, 90);
+    --bg-main: rgb(0, 50, 50);
+
+    /*Texto*/
+    --dark-color: rgb(0, 0, 0);
+    --light-color: rgb(255, 255, 255);
+}
+
+p {
+    padding: 0.25rem !important;
+}
+
+/*---------- CLASES */
+.Actions {
+    font-weight: bold;
+}
+
+.Character {
+    background-color: transparent;
+    color: var(--light-color);
+    cursor: pointer;
+}
+
+.Characters {
+    display: flex;
+}
+
+.List-Characters {
+    background-color: var(--bg-main);
+    border-radius: 10px;
+    min-width: 100%;
+    transform: translate(0px, 45px) !important;
+}
+
+.modal-body {
+    display: flex;
+}
+
+.modal-dialog {
+    left: 30vw;
+    top: 40vh;
+}
+
+.modal-footer {
+    justify-content: end;
+}
+
+.modal-header {
+    color: var(--light-color);
+    justify-content: space-between;
+    padding: 0.5rem !important;
+}
+
+.Narration {
+    font-style: italic;
+    text-align: justify;
+}
+
+.Normal {
+    text-align: justify;
+}
+
+.Toolbar {
+    display: flex;
+    gap: 0.25rem !important;
+    margin: 0.5rem 0rem !important;
+    width: 100%;
+}
+
+/*---------- ID */
+#Content {
+    color: var(--light-color);
+    height: calc(100% - 0.5rem);
+    margin: 0.25rem !important;
+    overflow-y: auto;
+}
+
+#Info-Character {
+    background-color: var(--bg-card);
+}
+
+#Main {
+    display: grid;
+    grid-area: 3 / 1 / 3 / 7;
+}
+
+#Main-Character {
+    min-width: 148px;
+    text-align: left;
+}
+
+#Secondary {
+    background-color: var(--bg-main);
+    border: var(--bg-card) 1px solid;
+    grid-area: 4 / 1 / 4 / 7;
+    height: 80vh;
+    margin-bottom: 0.5rem !important;
+}
+
+/*---------- COMBINADOS Y PSEUDOCLASES */
+.Actions::after {
+    content: " - ";
+}
+
+.Actions::before {
+    content: " - ";
+}
+
+.btn-group button, .Toolbar button {
+    background-color: var(--bg-button-hover);
+    border: var(--bg-card) 1px solid !important;
+    padding: 0.4rem 0.25rem !important;
+}
+
+.btn-group button:active {
+    background-color: var(--bg-button-hover) !important;
+    border: var(--bg-button-hover) 1px solid !important;
+}
+
+.btn-group button:focus {
+    background-color: var(--bg-button-hover);
+    border: var(--bg-button-hover) 1px solid !important;
+}
+
+.btn-group button:hover {
+    background-color: var(--bg-button);
+    border: var(--bg-button) 1px solid !important;
+}
+
+.Character:hover {
+    background-color: var(--bg-button-hover);
+    border-radius: 10px;
+    color: var(--light-color);
+}
+
+.modal-body input {
+    margin: 0.5rem !important;
+    width: 70%;
+}
+
+.modal-body label {
+    color: var(--light-color);
+    margin: 0.5rem !important;
+    width: 30%;
+}
+
+.modal-footer button {
+    color: var(--light-color);
+    margin: 0.5rem !important;
+    padding: 0.5rem !important;
+}
+
+.modal-header button {
+    background-color: var(--light-color);
+    padding: 0.5rem !important;
+}
+
+.Toolbar button {
+    border-radius: 10px;
+    color: var(--light-color);
+}

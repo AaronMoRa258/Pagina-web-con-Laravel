@@ -1,0 +1,148 @@
+// Obtiene elementos para su posterior modificacion
+const ELEMENTS_BOOKMARK = document.getElementById("elements-Bookmark");
+const FOLLOWERS = document.getElementById("followers");
+const FOLLOWING = document.getElementById("following");
+const NAME = document.getElementById("name");
+const OTHER_LIST = document.getElementById("other-List");
+const USER = document.getElementById("user");
+
+const ANIMES_INFO = document.getElementById("animes-Info");
+const COMICS_INFO = document.getElementById("comics-Info");
+const HISTORIES_INFO = document.getElementById("histories-Info");
+
+const ANIMES_BOOKMARK_CONTAINER = document.getElementById('animes-Bookmark-Container');
+const COMICS_BOOKMARK_CONTAINER = document.getElementById('comics-Bookmark-Container');
+const HISTORIES_BOOKMARK_CONTAINER = document.getElementById('histories-Bookmark-Container');
+const ANIMES_OTHER_LIST_CONTAINER = document.getElementById('animes-Other-List-Container');
+const COMICS_OTHER_LIST_CONTAINER = document.getElementById('comics-Other-List-Container');
+const HISTORIES_OTHER_LIST_CONTAINER = document.getElementById('histories-Other-List-Container');
+
+// Variables a utilizar
+let containers_List = [ANIMES_BOOKMARK_CONTAINER, COMICS_BOOKMARK_CONTAINER,
+    HISTORIES_BOOKMARK_CONTAINER, ANIMES_OTHER_LIST_CONTAINER,
+    COMICS_OTHER_LIST_CONTAINER, HISTORIES_OTHER_LIST_CONTAINER
+];
+
+let nav_Elements_List = [ANIMES_INFO, COMICS_INFO, HISTORIES_INFO];
+
+// Sirve para indicar el tipo de elementos mostrados
+function active_List(type) {
+    switch (type) {
+        case 'Comics':
+            show_Hide(1, 4, 1);
+            break;
+        case 'Histories':
+            show_Hide(2, 5, 2)
+            break;
+        default:
+            show_Hide(0, 3, 0)
+            break;
+    }
+}
+
+// Permite cargar la lista de marcadores del usuario
+function bookmarks_Load(user) {
+    fetch(ANIMES_API[2].concat("/load/", user, "/", true))
+    .then((res) => res.json())
+    .then((data) => {
+        data.forEach((anime) => {
+            ELEMENTS_BOOKMARK.innerHTML += `
+                <div class="card-Background card card m-2 p-2" style="width: 18rem;">
+                    <a href="${ANIME_ROUTE.concat("/", anime.id)}">
+                        <div class="type-Image-Card">
+                            <div class="image-Card">
+                                <img alt="${anime.name}" class="card-img" src="${ANIME_IMAGE_ROUTE.concat("/", anime.image)}">
+                            </div>
+                            <p class="type">${anime.type}</p>
+                        </div>
+                        
+                        <div class="card-body">
+                            <p class="fs-6 mt-2 mx-3 text-center">${title_Len_Define(anime.name)}</p>
+                        </div>
+                    </a>
+                </div>
+            `;
+        });
+    });
+}
+
+// Realiza una verificacion de las listas del usuario
+function list_Check(user) {
+    fetch(ANIMES_API[3].concat("/load/", user, "/", true))
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.Completed.length > 0) {
+            list_Load(data.Completed, 'Completado');
+        }
+
+        if (data.Discarded.length > 0) {
+            list_Load(data.Discarded, 'Descartado');
+        }
+
+        if (data.Paused.length > 0) {
+            list_Load(data.Paused, 'Pausado');
+        }
+
+        if (data.Watched.length > 0) {
+            list_Load(data.Watched, 'Por Ver');
+        }
+
+        if (data.Watching.length > 0) {
+            list_Load(data.Watching, 'Viendo');
+        }
+    });
+}
+
+// Carga las listas del usuario 
+function list_Load(list, name) {
+    let elements = '';
+            
+    list.forEach((anime) => {
+        elements += `
+            <div class="card-Background card card m-2 p-2" style="width: 18rem;">
+                <a href="${ANIME_ROUTE.concat("/", anime.id)}">
+                    <div class="type-Image-Card">
+                        <div class="image-Card">
+                            <img alt="${anime.name}" class="card-img" src="${ANIME_IMAGE_ROUTE.concat("/", anime.image)}">
+                        </div>
+                        <p class="type">${anime.type}</p>
+                    </div>
+                        
+                    <div class="card-body">
+                        <p class="fs-6 mt-2 mx-3 text-center">${title_Len_Define(anime.name)}</p>
+                    </div>
+                </a>
+            </div>
+        `
+    });
+    
+    OTHER_LIST.innerHTML += `
+        <div class="container mt-4">
+            <div class="row">
+                <h3 class="light-Color list-Title">${name}</h3>
+            </div>
+            <div class="row">
+                <div class="elements-List">${elements}</div>
+            </div>
+        </div>
+    `;
+}
+
+// Muestra u oculta contenido segun el tipo de elementos seleccionados (clase active)
+function show_Hide(cont_1, cont_2, element) {
+    for (let i = 0; i < containers_List.length; i++) {
+        if (i == cont_1 || i == cont_2) {
+            containers_List[i].style.display = 'block';
+        } else {
+            containers_List[i].style.display = 'none';
+        }
+    }
+
+    for (let i = 0; i < nav_Elements_List.length; i++) {
+        if (i == element) {
+            nav_Elements_List[i].classList.add('active');
+        } else {
+            nav_Elements_List[i].classList.remove('active');
+        }
+    }
+}

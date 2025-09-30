@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link href="{{ asset('BOOTSTRAP/CSS/bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{ asset('BOOTSTRAP/ICONOS/bootstrap-icons.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/cards.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/index.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/main.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/media_Index.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/media_Main.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Animes</title>
+  </head>
+  <body class="body-Background">
+    @include('partials/header')
+    @include('partials/nav')
+    
+    <section id="main">
+      <div class="content mt-4 mx-4" id="container-Elements"></div>
+      <div class="page-Changer">
+        <button class="btn mt-4 mx-4 p-2" disabled id="before" onclick="page_Before()">
+          Anterior Página
+        </button>
+        <button class="btn mt-4 mx-4 p-2" id="next" onclick="page_Next()">
+          Siguiente Página
+        </button>
+      </div>
+    </section>
+
+    @include('partials/footer')
+    @include('partials/routes')
+
+    <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
+    <script src="{{ asset('JS/index.js')}}"></script>
+    <script src="{{ asset('JS/comics.js')}}"></script>
+    <script src="{{ asset('JS/main.js')}}"></script>
+    <script>
+      page = 1;
+      api = "{{ $api }}";
+      query = "{{ $query }}";
+      type = "{{ $type }}";
+      
+      switch (type) {
+        case 'comic':
+          api_Route = COMICS_API[api];
+          comics_Load();
+          break;
+        default:
+          api_Route = ANIMES_API[api];
+          animes_Load();
+          break;
+      }
+
+      auth_Check();
+    </script>
+  </body>
+</html>
