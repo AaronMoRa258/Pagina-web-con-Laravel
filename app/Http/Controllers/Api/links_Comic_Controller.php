@@ -14,23 +14,8 @@ class links_Comic_Controller extends Controller {
 
         if ($links) {
             return response()->json($links);
-        } else {
-            return response()->json(['error' => 'Enlaces no encontrado'], 404);
         }
-    }
-
-    // Devuelve lista de animes en grupos de 15 para resultados de busqueda
-    public function search($query, Request $request) {
-        $page = $request->query('P', 1);
-        $limit = 15;
-        $offset = ($page - 1) * $limit;
-        
-        $comics = comics::where('name', 'like', "%{$query}%")->orderBy('id', 'desc')->offset($offset)->limit($limit)->get();
-        
-        if ($comics->isEmpty()) {
-            return response()->json(['message' => 'No se encontraron resultados']);
-        }
-
-        return response()->json($comics);
+            
+        return response()->json(['error' => 'Enlaces no encontrado'], 404);
     }
 }

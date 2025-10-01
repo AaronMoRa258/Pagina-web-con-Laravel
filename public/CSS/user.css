@@ -30,7 +30,7 @@ body {
     border-radius: 10px;
 }
 
-.card {
+.my-Card {
     height: 95% !important;
     max-width: 250px;
 }

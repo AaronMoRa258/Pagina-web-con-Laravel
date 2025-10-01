@@ -1,6 +1,10 @@
 // Obtiene elementos para su posterior modificacion
 const CHAPTERS = document.getElementById('chapters');
-const ANIME_INFO = document.getElementById('anime-Info');
+
+const ANIME_IMAGE = document.getElementById('anime-Image');
+const ANIME_NAME = document.getElementById('anime-Name');
+const DESCRIPTION = document.getElementById('anime-Description');
+const EXTRA_INFO = document.getElementById('extra-Info');
 
 // Variables a utilizar
 let bookmark_State = false;
@@ -68,77 +72,26 @@ async function remove(api) {
 }
 
 // Carga informacion del anime
-function anime_Load(api) {
-    // Consulta API para obtener informacion del anime
-    fetch(ANIMES_API[api].concat('/', anime_Id))
-    .then((res) => res.json())
-    .then((data) => {
-        ANIME_INFO.innerHTML = '';
-        CHAPTERS.innerHTML = '';
+function anime_Load(chapters, description, extra_Info, image, name) {
+    ANIME_IMAGE.innerHTML = ` <img alt='${name}' class='card-img img-fluid' src='${ANIME_IMAGE_ROUTE.concat('/', image)}'/>`;
+    ANIME_NAME.innerHTML = `${name}`;
+    DESCRIPTION.innerHTML = `Sinopsis: ${description}`;
+    EXTRA_INFO.innerHTML = `${extra_Info}`;
 
-        ANIME_INFO.innerHTML += `<div class='container-fluid'>
-            <div class='align-items-center gap-3 p-3 row'>
-                <div class='anime-Image p-1'>
-                    <img
-                        alt='${data.name}'
-                        class='card-img img-fluid'
-                        src='${ANIME_IMAGE_ROUTE.concat('/', data.image)}'
-                    />
-                </div>
-                <div class='information'>
-                    <div class='card-body p-1'>
-                        <h3 class='card-title' id='anime-Name'>${data.name}</h3>
-                        <p class='card-text' id='anime-Description'>Sinopsis: ${data.description}</p>
+    let chapter_List = `<ul class='list-group'>
+        <li class='card-Background light-Color list-group-item p-2'>Episodios del <b>1</b> al <b>${chapters}</b></li>`;
+    for (let i = 1; i <= chapters; i++) {
+        chapter_List += `<a href='${ROOT_ROUTE.concat(anime_Id, '/cap-', i)}'><li class='chapter-List list-group-item p-2'>${name} - ${i}</li></a>`;
+    }
 
-                        <div>
-                            <ul class='extra-Info gap-2'>
-                                <li>${data.type}</li><i class='bi bi-dot'></i>
-                                <li>${data.year}</li><i class='bi bi-dot'></i>
-                                <li>${data.season}</li><i class='bi bi-dot'></i>
-                                <li>${data.condition}</li>
-                            </ul>
-                        </div>
+    chapter_List += `</ul>`;
+    CHAPTERS.innerHTML = chapter_List;
 
-                        <div class='extra-Actions gap-2'>
-                            <div class='btn-group'>
-                                <button aria-expanded='false' class='btn btn-secondary dropdown-toggle-split list' data-bs-toggle='dropdown' id='main-List' type='button'>
-                                    <i class='bi bi-plus-circle p-1'></i> Agregar a lista
-                                </button>
-                                <button aria-expanded='false' class='btn btn-secondary dropdown-toggle dropdown-toggle-split' data-bs-toggle='dropdown' id='list-Dropdown' type='button'></button>
-                                <ul class='dropdown-menu lists p-1'>
-                                    <li class='dropdown-item list-Element p-2' onclick='lists("bi-eye", "Viendo")'><i class='bi bi-eye pe-2'></i>Viendo</li>
-                                    <li class='dropdown-item list-Element p-2' onclick='lists("bi-bookmark-plus", "Por Ver")'><i class='bi bi-bookmark-plus pe-2'></i>Por Ver</li>
-                                    <li class='dropdown-item list-Element p-2' onclick='lists("bi-check-circle", "Completado")'><i class='bi bi-check-circle pe-2'></i>Completado</li>
-                                    <li class='dropdown-item list-Element p-2' onclick='lists("bi-clock", "Pausado")'><i class='bi bi-clock pe-2'></i>Pausado</li>
-                                    <li class='dropdown-item list-Element p-2' onclick='lists("bi-dash-circle", "Descartado")'><i class='bi bi-dash-circle pe-2'></i>Descartado</li>
-                                </ul>
-                            </div>
-                            <button class='btn btn-primary px-2' id='button-Bookmark' onclick='bookmarks()'>
-                                <i class='bi bi-heart' id='bookmark-Icon'></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='anime-Background-Image'>
-            </div>
-        </div>`;
+    BOOKMARK_ICON = document.getElementById('bookmark-Icon');
+    MAIN_LIST = document.getElementById('main-List');
 
-        let chapter_List = `<ul class='list-group'>
-            <li class='card-Background light-Color list-group-item p-2'>Episodios del <b>1</b> al <b>${data.chapters}</b></li>`;
-        for (let i = 1; i <= data.chapters; i++) {
-            chapter_List += `<a href='${ROOT_ROUTE.concat(data.id, '/cap-', i)}'><li class='chapter-List list-group-item p-2'>${data.name} - ${i}</li></a>`;
-        }
-
-        chapter_List += `</ul>`;
-        CHAPTERS.innerHTML = chapter_List;
-
-        BOOKMARK_ICON = document.getElementById('bookmark-Icon');
-        MAIN_LIST = document.getElementById('main-List');
-
-        bookmark_Check();
-        list_Check();
-    });
+    bookmark_Check();
+    list_Check();
 }
 
 // Revisa si el anime seleccionado esta o no en la lista de favoritos del usuario actual
@@ -160,6 +113,7 @@ function bookmark_Check() {
 function bookmarks() {
     if (!login) {
         window.location.href = `/Login`;
+        return;
     }
 
     BOOKMARK_ICON.classList.toggle('bi-heart');

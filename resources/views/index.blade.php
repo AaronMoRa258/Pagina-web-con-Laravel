@@ -32,8 +32,6 @@
     @include('partials/routes')
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
-    <script src="{{ asset('JS/index.js')}}"></script>
-    <script src="{{ asset('JS/comics.js')}}"></script>
     <script src="{{ asset('JS/main.js')}}"></script>
     <script>
       page = 1;
@@ -44,11 +42,11 @@
       switch (type) {
         case 'comic':
           api_Route = COMICS_API[api];
-          comics_Load();
+          api_Query('', COMIC_ROUTE, 'Comic');
           break;
         default:
           api_Route = ANIMES_API[api];
-          animes_Load();
+          api_Query(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
           break;
       }
 

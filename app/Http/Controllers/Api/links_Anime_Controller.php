@@ -14,8 +14,8 @@ class links_Anime_Controller extends Controller {
 
         if ($link) {
             return response()->json($link);
-        } else {
-            return response()->json(['error' => 'Enlace no encontrado'], 404);
         }
+            
+        return response()->json(['error' => 'Enlace no encontrado'], 404);
     }
 }

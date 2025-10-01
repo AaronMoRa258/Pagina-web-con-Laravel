@@ -16,6 +16,10 @@ class animes_Controller extends Controller {
 
         $animes = animes::orderBy('id', 'desc')->offset($offset)->limit($limit)->get();
 
+        if ($animes->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados']);
+        }
+        
         return response()->json($animes);
     }
 

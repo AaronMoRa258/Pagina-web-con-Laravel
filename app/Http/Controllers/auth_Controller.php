@@ -12,11 +12,13 @@ class auth_Controller extends Controller {
     
     // Procesar login
     public function login(Request $Request) {
+        // Recupera credenciales ingresadas
         $Credentials = [
             'User' => $Request->User,
             'password' => $Request->Password,
         ];
 
+        // Verificar credenciales
         if (Auth::attempt($Credentials)) {
             // Login exitoso
             $Request->session()->regenerate(); // Protege contra session fixation

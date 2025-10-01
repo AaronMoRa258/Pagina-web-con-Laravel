@@ -45,78 +45,50 @@ function bookmarks_Load(user) {
     fetch(ANIMES_API[2].concat("/load/", user, "/", true))
     .then((res) => res.json())
     .then((data) => {
-        data.forEach((anime) => {
-            ELEMENTS_BOOKMARK.innerHTML += `
-                <div class="card-Background card card m-2 p-2" style="width: 18rem;">
-                    <a href="${ANIME_ROUTE.concat("/", anime.id)}">
-                        <div class="type-Image-Card">
-                            <div class="image-Card">
-                                <img alt="${anime.name}" class="card-img" src="${ANIME_IMAGE_ROUTE.concat("/", anime.image)}">
-                            </div>
-                            <p class="type">${anime.type}</p>
-                        </div>
-                        
-                        <div class="card-body">
-                            <p class="fs-6 mt-2 mx-3 text-center">${title_Len_Define(anime.name)}</p>
-                        </div>
-                    </a>
-                </div>
-            `;
-        });
+        ELEMENTS_BOOKMARK.innerHTML = lists_Load(ANIME_IMAGE_ROUTE, data, '', ANIME_ROUTE);
     });
 }
 
 // Realiza una verificacion de las listas del usuario
 function list_Check(user) {
-    fetch(ANIMES_API[3].concat("/load/", user, "/", true))
+    fetch(ANIMES_API[3].concat("/load/", user))
     .then((res) => res.json())
     .then((data) => {
         if (data.Completed.length > 0) {
-            list_Load(data.Completed, 'Completado');
+            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Completed, 'Completado', ANIME_ROUTE);
         }
 
         if (data.Discarded.length > 0) {
-            list_Load(data.Discarded, 'Descartado');
+            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Discarded, 'Descartado', ANIME_ROUTE);
         }
 
         if (data.Paused.length > 0) {
-            list_Load(data.Paused, 'Pausado');
+            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Paused, 'Pausado', ANIME_ROUTE);
         }
 
         if (data.Watched.length > 0) {
-            list_Load(data.Watched, 'Por Ver');
+            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watched, 'Por Ver', ANIME_ROUTE);
         }
 
         if (data.Watching.length > 0) {
-            list_Load(data.Watching, 'Viendo');
+            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watching, 'Viendo', ANIME_ROUTE);
         }
     });
 }
 
-// Carga las listas del usuario 
-function list_Load(list, name) {
+// Se encarga de cargar los elementos para cada una de las listas del usuario 
+function lists_Load(image_Route, list, name = '', route, type = '') {
     let elements = '';
-            
-    list.forEach((anime) => {
-        elements += `
-            <div class="card-Background card card m-2 p-2" style="width: 18rem;">
-                <a href="${ANIME_ROUTE.concat("/", anime.id)}">
-                    <div class="type-Image-Card">
-                        <div class="image-Card">
-                            <img alt="${anime.name}" class="card-img" src="${ANIME_IMAGE_ROUTE.concat("/", anime.image)}">
-                        </div>
-                        <p class="type">${anime.type}</p>
-                    </div>
-                        
-                    <div class="card-body">
-                        <p class="fs-6 mt-2 mx-3 text-center">${title_Len_Define(anime.name)}</p>
-                    </div>
-                </a>
-            </div>
-        `
+
+    list.forEach((element) => {
+        elements += card_Information_Retrieve(element, image_Route, route, true, type);
     });
-    
-    OTHER_LIST.innerHTML += `
+
+    if (name == '') {
+        return elements;
+    }
+
+    return `
         <div class="container mt-4">
             <div class="row">
                 <h3 class="light-Color list-Title">${name}</h3>

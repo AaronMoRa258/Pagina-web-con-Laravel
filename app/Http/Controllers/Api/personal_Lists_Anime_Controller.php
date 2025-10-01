@@ -11,23 +11,15 @@ use Illuminate\Support\Facades\DB;
 class personal_Lists_Anime_Controller extends Controller {
     
     // Obtiene y devuelve elementos de lista indicada
-    protected function get_Elements_List($list) {
+    protected function get_Elements_List($list, $user) {
+        $query_Results = personal_Lists_Anime::where('user', $user)->where('list', $list)->limit(4)->get();
         $new_List = [];
 
-        foreach($list as $element) {
+        foreach($query_Results as $element) {
             $new_List[] = animes::find($element->anime_Id);
         }
 
         return $new_List;
-    }
-
-    // Obtiene y devuelve resultado de consulta basado en si require o no limite de elementos
-    protected function get_Query($limit, $list, $user) {
-        if ($limit) {
-            return personal_Lists_Anime::where('user', $user)->where('list', $list)->limit(4)->get();
-        } else {
-            return personal_Lists_Anime::where('user', $user)->where('list', $list)->get();
-        }
     }
 
     // Agrega anime a lista seleccionada
@@ -42,42 +34,30 @@ class personal_Lists_Anime_Controller extends Controller {
     }
 
     // Comprueba si un anime esta en alguna lista para el usuario especificado
-    public function list($user, $anime_Id) {
+    public function list_Check($user, $anime_Id) {
         $list = personal_Lists_Anime::where('user', $user)->where('anime_Id', $anime_Id)->first();
 
         if ($list) {
             return response()->json($list);
-        } else {
-            return response()->json(['message' => 'Anime no encontrado en alguna lista']);
         }
+            
+        return response()->json(['message' => 'Anime no encontrado en alguna lista']);
     }
 
     // Devuelve listas para el usuario especificado
-    public function lists($user, $limit) {
-        $completed = $this->get_Query($limit, 'Completado', $user);
-        $discarded = $this->get_Query($limit, 'Descartado', $user);
-        $paused = $this->get_Query($limit, 'Pausado', $user);
-        $watched = $this->get_Query($limit, 'Por Ver', $user);
-        $watching = $this->get_Query($limit, 'Viendo', $user);
-
-        $list_Completed = $this->get_Elements_List($completed);
-        $list_Discarded = $this->get_Elements_List($discarded);
-        $list_Paused = $this->get_Elements_List($paused);
-        $list_Watched = $this->get_Elements_List($watched);
-        $list_Watching = $this->get_Elements_List($watching);
-
+    public function lists_Get($user) {
         $lists = [
-            'Completed' => $list_Completed, 
-            'Discarded' => $list_Discarded, 
-            'Paused' => $list_Paused, 
-            'Watched' => $list_Watched, 
-            'Watching' => $list_Watching];
+            'Completed' => $this->get_Elements_List('Completado', $user), 
+            'Discarded' => $this->get_Elements_List('Descartado', $user), 
+            'Paused' => $this->get_Elements_List('Pausado', $user), 
+            'Watched' => $this->get_Elements_List('Por Ver', $user), 
+            'Watching' => $this->get_Elements_List('Viendo', $user)];
 
         if (!is_null($lists)) {
             return response()->json($lists);
-        } else {
-            return response()->json(['message' => 'El usuario no tiene listas']);
         }
+            
+        return response()->json(['message' => 'El usuario no tiene listas']);
     }
 
     // Elimina anime de lista seleccionada

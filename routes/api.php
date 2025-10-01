@@ -21,10 +21,10 @@ Route::post('/animes/bookmarks/add', [bookmarks_Anime_Controller::class, 'add_Bo
 Route::post('/animes/bookmarks/remove', [bookmarks_Anime_Controller::class, 'remove_Bookmark']);
 
 // Comprueba si un anime esta en lista de marcadores del usuario 
-Route::get('/animes/bookmarks/check/{user}/{anime_Id}', [bookmarks_Anime_Controller::class, 'bookmark']);
+Route::get('/animes/bookmarks/check/{user}/{anime_Id}', [bookmarks_Anime_Controller::class, 'bookmark_Check']);
 
 // Carga marcadores del usuario
-Route::get('/animes/bookmarks/load/{user}/{limit}', [bookmarks_Anime_Controller::class, 'bookmarks']);
+Route::get('/animes/bookmarks/load/{user}/{limit}', [bookmarks_Anime_Controller::class, 'bookmarks_Get']);
 
 // Agrega anime a lista indicada del usuario
 Route::post('/animes/lists/add', [personal_Lists_Anime_Controller::class, 'add_List']);
@@ -32,11 +32,11 @@ Route::post('/animes/lists/add', [personal_Lists_Anime_Controller::class, 'add_L
 // Agrega anime a lista indicada del usuario
 Route::post('/animes/lists/remove', [personal_Lists_Anime_Controller::class, 'remove_List']);
 
-// Comprueba si un anime esta en lista de marcadores del usuario
-Route::get('/animes/lists/check/{user}/{anime_Id}', [personal_Lists_Anime_Controller::class, 'list']);
-
 // Carga listas del usuario
-Route::get('/animes/lists/load/{user}/{limit}', [personal_Lists_Anime_Controller::class, 'lists']);
+Route::get('/animes/lists/load/{user}', [personal_Lists_Anime_Controller::class, 'lists_Get']);
+
+// Comprueba si un anime esta en lista de marcadores del usuario
+Route::get('/animes/lists/check/{user}/{anime_Id}', [personal_Lists_Anime_Controller::class, 'list_Check']);
 
 // Carga animes para resultados de busqueda
 Route::get('/animes/search/{query}', [animes_Controller::class, 'search']);

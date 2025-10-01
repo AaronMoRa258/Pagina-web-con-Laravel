@@ -68,18 +68,17 @@
     @include('partials/routes')
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
-    <script src="{{ asset('JS/index.js')}}"></script>
     <script src="{{ asset('JS/main.js')}}"></script>
     <script src="{{ asset('JS/user.js')}}"></script>
     <script>
-      FOLLOWERS.innerHTML = 'Seguidores: {{ $Followers }}';
-      FOLLOWING.innerHTML = 'Siguiendo: {{ $Following }}';
-      NAME.innerHTML = '{{ $Name }}';
-      USER.innerHTML = '@ {{ $User }}';
+      FOLLOWERS.innerHTML = 'Seguidores: {{ $followers }}';
+      FOLLOWING.innerHTML = 'Siguiendo: {{ $following }}';
+      NAME.innerHTML = '{{ $name }}';
+      USER.innerHTML = '@ {{ $user }}';
 
       auth_Check();
-      bookmarks_Load('{{ $User }}');
-      list_Check('{{ $User }}');
+      bookmarks_Load('{{ $user }}');
+      list_Check('{{ $user }}');
     </script>
   </body>
 </html>

@@ -68,13 +68,12 @@ function chapter_Load() {
 
 // Cambiar al capitulo siguiente
 function chapter_Next() {
-    fetch(APIs[0].concat('/', anime_Id))
+    fetch(ANIMES_API[0].concat('/', anime_Id))
     .then((res) => res.json())
     .then((data) => {
         NumCaps = data.Capitulos;
 
         if (chapter < NumCaps) {
-
             window.location.href = ROOT_ROUTE.concat(anime_Id, '/cap-', Number(chapter) + 1);    
         }
     });

@@ -30,10 +30,6 @@
         // Obtiene informacion del anime seleccionado
         comic_Id = '{{ $comic_Id }}';
 
-        if (isNaN(Number(comic_Id))) {
-            window.location.href = `/`;
-        }
-
         auth_Check();
         comic_Load(0);
     </script>

@@ -18,7 +18,25 @@
     @include('partials/nav')
 
     <section id="main">
-        <article class="card anime-Gradient mt-4 mx-4" id="anime-Info"></article>
+        <article class="card anime-Gradient mt-4 mx-4" id="anime-Info">
+            <div class='container-fluid'>
+                <div class='align-items-center gap-3 p-3 row'>
+                    <div class='anime-Image p-1' id='anime-Image'></div>
+                        <div class='information'>
+                            <div class='card-body p-1'>
+                                <h3 class='card-title' id='anime-Name'></h3>
+                                <p class='card-text' id='anime-Description'></p>
+                                <div>
+                                    <ul class='extra-Info gap-2' id='extra-Info'></ul>
+                                </div>
+
+                                @include('partials/extra_Actions')
+                            </div>
+                        </div>
+                    </div>
+                <div class='anime-Background-Image'></div>
+            </div>
+        </article>
         <article class="mt-4 mx-4" id="chapters"></article>
     </section>
     
@@ -30,14 +48,10 @@
     <script src="{{ asset('JS/main.js')}}"></script>
     <script>
         // Obtiene informacion del anime seleccionado
-        anime_Id = '{{ $anime_Id }}';
-
-        if (isNaN(Number(anime_Id))) {
-            window.location.href = `/`;
-        }
+        anime_Id = '{{ $id }}';
 
         auth_Check();
-        anime_Load(0);
+        anime_Load('{{ $chapters }}', '{{ $description }}', '{!! $extra_Info !!}', '{{ $image }}', '{{ $name }}');
     </script>
 </body>
 </html>

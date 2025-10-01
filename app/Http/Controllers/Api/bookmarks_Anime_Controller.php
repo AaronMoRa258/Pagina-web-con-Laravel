@@ -21,18 +21,18 @@ class bookmarks_Anime_Controller extends Controller {
     }
 
     // Comprueba si un anime esta en lista de marcadores del usuario especificado
-    public function bookmark($user, $anime_Id) {
+    public function bookmark_Check($user, $anime_Id) {
         $bookmark = bookmarks_Anime::where('user', $user)->where('anime_Id', $anime_Id)->first();
 
         if ($bookmark) {
             return response()->json($bookmark);
-        } else {
-            return response()->json(['message' => 'Anime no encontrado en favoritos']);
         }
+            
+        return response()->json(['message' => 'Anime no encontrado en favoritos']);
     }
 
     // Devuelve favoritos del usuario
-    public function bookmarks($user, $limit) {
+    public function bookmarks_Get($user, $limit) {
         $bookmark_List = [];
 
         if ($limit) {
@@ -47,9 +47,9 @@ class bookmarks_Anime_Controller extends Controller {
 
         if (!is_null($bookmark_List)) {
             return response()->json($bookmark_List);
-        } else {
-            return response()->json(['message' => 'No hay animes en favoritos']);
-        }
+        } 
+        
+        return response()->json(['message' => 'No hay animes en favoritos']);
     }
 
     // Elimina anime de favoritos
