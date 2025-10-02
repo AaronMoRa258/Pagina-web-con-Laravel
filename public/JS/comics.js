@@ -5,9 +5,11 @@ const IMAGES = document.getElementById('images');
 let comic_Id = 1;
 
 // Carga lista de comics
-function comic_Load(api) {
-    // Consulta API para obtener los comics
-    fetch(COMICS_API[api].concat('/', comic_Id))
+function comic_Load(description, front_Page, extra_Info, name) {
+    element_Main_Info_Load(description, extra_Info, front_Page, name);
+
+    // Consulta API para obtener las imagenes del comic
+    fetch(COMICS_API[0].concat('/', comic_Id))
     .then((res) => res.json())
     .then((data) => {
         IMAGES.innerHTML = '';
@@ -34,4 +36,10 @@ function comic_Load(api) {
 
         IMAGES.innerHTML = Images;
     });
+
+    BOOKMARK_ICON = document.getElementById('bookmark-Icon');
+    MAIN_LIST = document.getElementById('main-List');
+    
+    bookmark_Check();
+    list_Check();
 }

@@ -18,18 +18,14 @@
 body {
     display: grid;
     grid-template-areas: 'Cabecera' 
-    'Menu' 
-    'Contenido_1' 
+    'Contenido_1'
+    'Contenido_2' 
     'PiePag';
 }
 
 img {
-    border: var(--bg-card) 1px solid;
+    border: var(--bg-card) 3px solid;
     width: 80%;
-}
-
-nav {
-    display: none !important;
 }
 
 /*---------- CLASES */
@@ -44,4 +40,12 @@ nav {
     grid-area: Contenido_1;
 }
 
+#secondary {
+    display: grid;
+    grid-area: Contenido_2;
+}
+
 /*---------- COMBINADOS Y PSEUDOCLASES */
+img:hover {
+    filter: none !important;
+}

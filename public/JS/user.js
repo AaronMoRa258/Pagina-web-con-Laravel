@@ -1,18 +1,25 @@
 // Obtiene elementos para su posterior modificacion
-const ELEMENTS_BOOKMARK = document.getElementById("elements-Bookmark");
 const FOLLOWERS = document.getElementById("followers");
 const FOLLOWING = document.getElementById("following");
 const NAME = document.getElementById("name");
-const OTHER_LIST = document.getElementById("other-List");
 const USER = document.getElementById("user");
 
 const ANIMES_INFO = document.getElementById("animes-Info");
 const COMICS_INFO = document.getElementById("comics-Info");
 const HISTORIES_INFO = document.getElementById("histories-Info");
 
+const ANIME_BOOKMARK_ELEMENTS = document.getElementById("anime-Bookmark-Elements");
+const COMIC_BOOKMARK_ELEMENTS = document.getElementById("comic-Bookmark-Elements");
+const HISTORY_BOOKMARK_ELEMENTS = document.getElementById("history-Bookmark-Elements");
+
+const ANIME_OTHER_LIST_ELEMENTS = document.getElementById("anime-Other-List-Elements");
+const COMIC_OTHER_LIST_ELEMENTS = document.getElementById("comic-Other-List-Elements");
+const HISTORY_OTHER_LIST_ELEMENTS = document.getElementById("history-Other-List-Elements");
+
 const ANIMES_BOOKMARK_CONTAINER = document.getElementById('animes-Bookmark-Container');
 const COMICS_BOOKMARK_CONTAINER = document.getElementById('comics-Bookmark-Container');
 const HISTORIES_BOOKMARK_CONTAINER = document.getElementById('histories-Bookmark-Container');
+
 const ANIMES_OTHER_LIST_CONTAINER = document.getElementById('animes-Other-List-Container');
 const COMICS_OTHER_LIST_CONTAINER = document.getElementById('comics-Other-List-Container');
 const HISTORIES_OTHER_LIST_CONTAINER = document.getElementById('histories-Other-List-Container');
@@ -45,7 +52,13 @@ function bookmarks_Load(user) {
     fetch(ANIMES_API[2].concat("/load/", user, "/", true))
     .then((res) => res.json())
     .then((data) => {
-        ELEMENTS_BOOKMARK.innerHTML = lists_Load(ANIME_IMAGE_ROUTE, data, '', ANIME_ROUTE);
+        ANIME_BOOKMARK_ELEMENTS.innerHTML = lists_Load(ANIME_IMAGE_ROUTE, data, '', ANIME_ROUTE);
+    });
+
+    fetch(COMICS_API[2].concat("/load/", user, "/", true))
+    .then((res) => res.json())
+    .then((data) => {
+        COMIC_BOOKMARK_ELEMENTS.innerHTML = lists_Load(ANIME_IMAGE_ROUTE, data, '', COMIC_ROUTE);
     });
 }
 
@@ -55,23 +68,47 @@ function list_Check(user) {
     .then((res) => res.json())
     .then((data) => {
         if (data.Completed.length > 0) {
-            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Completed, 'Completado', ANIME_ROUTE);
+            ANIME_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Completed, 'Completado', ANIME_ROUTE);
         }
 
         if (data.Discarded.length > 0) {
-            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Discarded, 'Descartado', ANIME_ROUTE);
+            ANIME_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Discarded, 'Descartado', ANIME_ROUTE);
         }
 
         if (data.Paused.length > 0) {
-            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Paused, 'Pausado', ANIME_ROUTE);
+            ANIME_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Paused, 'Pausado', ANIME_ROUTE);
         }
 
         if (data.Watched.length > 0) {
-            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watched, 'Por Ver', ANIME_ROUTE);
+            ANIME_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watched, 'Por Ver', ANIME_ROUTE);
         }
 
         if (data.Watching.length > 0) {
-            OTHER_LIST.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watching, 'Viendo', ANIME_ROUTE);
+            ANIME_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watching, 'Viendo', ANIME_ROUTE);
+        }
+    });
+
+    fetch(COMICS_API[3].concat("/load/", user))
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.Completed.length > 0) {
+            COMIC_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Completed, 'Completado', COMIC_ROUTE);
+        }
+
+        if (data.Discarded.length > 0) {
+            COMIC_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Discarded, 'Descartado', COMIC_ROUTE);
+        }
+
+        if (data.Paused.length > 0) {
+            COMIC_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Paused, 'Pausado', COMIC_ROUTE);
+        }
+
+        if (data.Watched.length > 0) {
+            COMIC_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watched, 'Por Ver', COMIC_ROUTE);
+        }
+
+        if (data.Watching.length > 0) {
+            COMIC_OTHER_LIST_ELEMENTS.innerHTML += lists_Load(ANIME_IMAGE_ROUTE, data.Watching, 'Viendo', COMIC_ROUTE);
         }
     });
 }

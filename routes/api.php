@@ -62,10 +62,10 @@ Route::post('/comics/bookmarks/add', [bookmarks_Comic_Controller::class, 'add_Bo
 Route::post('/comics/bookmarks/remove', [bookmarks_Comic_Controller::class, 'remove_Bookmark']);
 
 // Comprueba si un anime esta en lista de marcadores del usuario 
-Route::get('/comics/bookmarks/check/{user}/{comic_Id}', [bookmarks_Comic_Controller::class, 'bookmark']);
+Route::get('/comics/bookmarks/check/{user}/{comic_Id}', [bookmarks_Comic_Controller::class, 'bookmark_Check']);
 
 // Carga marcadores del usuario
-Route::get('/comics/bookmarks/load/{user}/{limit}', [bookmarks_Comic_Controller::class, 'bookmarks']);
+Route::get('/comics/bookmarks/load/{user}/{limit}', [bookmarks_Comic_Controller::class, 'bookmarks_Get']);
 
 // Agrega anime a lista indicada del usuario
 Route::post('/comics/lists/add', [personal_Lists_Comic_Controller::class, 'add_List']);
@@ -73,11 +73,11 @@ Route::post('/comics/lists/add', [personal_Lists_Comic_Controller::class, 'add_L
 // Agrega anime a lista indicada del usuario
 Route::post('/comics/lists/remove', [personal_Lists_Comic_Controller::class, 'remove_List']);
 
-// Comprueba si un anime esta en lista de marcadores del usuario
-Route::get('/comics/lists/check/{user}/{comic_Id}', [personal_Lists_Comic_Controller::class, 'list']);
-
 // Carga listas del usuario
-Route::get('/comics/lists/load/{user}/{limit}', [personal_Lists_Comic_Controller::class, 'lists']);
+Route::get('/comics/lists/load/{user}', [personal_Lists_Comic_Controller::class, 'lists_Get']);
+
+// Comprueba si un anime esta en lista de marcadores del usuario
+Route::get('/comics/lists/check/{user}/{comic_Id}', [personal_Lists_Comic_Controller::class, 'list_Check']);
 
 // Carga comics para resultados de busqueda
 Route::get('/comics/search/{query}', [comics_Controller::class, 'search']);

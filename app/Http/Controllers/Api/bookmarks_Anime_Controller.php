@@ -14,7 +14,7 @@ class bookmarks_Anime_Controller extends Controller {
     public function add_Bookmark(Request $request) {
         bookmarks_Anime::create([
             'user' => $request->user,
-            'anime_Id' => $request->anime_Id
+            'anime_Id' => $request->element_Id
         ]);
 
         return response()->json(['added' => 'Anime agregado a favoritos']);
@@ -54,7 +54,7 @@ class bookmarks_Anime_Controller extends Controller {
 
     // Elimina anime de favoritos
     public function remove_Bookmark(Request $request) {
-        DB::table('bookmarks_anime')->where('user', $request->user)->where('anime_Id', $request->anime_Id)->delete();
+        DB::table('bookmarks_anime')->where('user', $request->user)->where('anime_Id', $request->element_Id)->delete();
 
         return response()->json(['removed' => 'Anime eliminado de favoritos']);
     }

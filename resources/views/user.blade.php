@@ -40,28 +40,27 @@
         </article>
     </section>
     <section id="secondary">
-      <article id="animes-Bookmark-Container">
-        <div class="lists mt-4 mx-4">
-          <div class="container">
-            <div class="row">
-              <h3 class="light-Color list-Title">Favoritos</h3>
-            </div>
-            <div class="row">
-              <div class="elements-List" id="elements-Bookmark"></div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article id="animes-Other-List-Container">
-        <div class="lists mt-4 mx-4" id="other-List"></div>
-      </article>
+      @include('partials/lists_Container', [
+        "id_1" => "animes-Bookmark-Container",
+        "id_2" => "anime-Bookmark-Elements",
+        "id_3" => "animes-Other-List-Container",
+        "id_4" => "anime-Other-List-Elements"
+        ])
       
 
-      <article id="comics-Bookmark-Container"></article>
-      <article id="comics-Other-List-Container"></article>
-
-      <article id="histories-Bookmark-Container"></article>
-      <article id="histories-Other-List-Container"></article>
+      @include('partials/lists_Container', [
+        "id_1" => "comics-Bookmark-Container",
+        "id_2" => "comic-Bookmark-Elements",
+        "id_3" => "comics-Other-List-Container",
+        "id_4" => "comic-Other-List-Elements"
+        ])
+      
+        @include('partials/lists_Container', [
+        "id_1" => "histories-Bookmark-Container",
+        "id_2" => "history-Bookmark-Elements",
+        "id_3" => "histories-Other-List-Container",
+        "id_4" => "history-Other-List-Elements"
+        ])
     </section>
 
     @include('partials/footer')

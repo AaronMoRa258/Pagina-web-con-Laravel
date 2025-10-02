@@ -1,18 +1,21 @@
 // Obtiene elementos para su posterior modificacion
 const CONTAINER_ELEMENTS = document.getElementById('container-Elements');
+const ELEMENT_IMAGE = document.getElementById('element-Image');
+const ELEMENT_NAME = document.getElementById('element-Name');
+const ELEMENT_DESCRIPTION = document.getElementById('element-Description');
+const EXTRA_INFO = document.getElementById('extra-Info');
 const INPUT_SEARCH = document.getElementById('input-Search');
 const USER_ICON = document.getElementById('user-Icon');
 const USER_NAME = document.getElementById('user-Name');
 
 // Variables a utilizar
-let api = 0;
 let api_Route = '';
 let page = 1;
 let query = '';
 let type = '';
 
 // Consulta api para recuperar elementos segun ruta especificada
-function api_Query(image_Route, route, type = '') {
+function api_Query(image_Route, route) {
     fetch(api_Route.concat('/', query, '?P=', page))
     .then((res) => res.json())
     .then((data) => {
@@ -39,7 +42,7 @@ function api_Query(image_Route, route, type = '') {
             return;
         }
 
-        CONTAINER_ELEMENTS.innerHTML = cards_Load(image_Route, data, route, type);
+        CONTAINER_ELEMENTS.innerHTML = cards_Load(image_Route, data, route);
     });
 }
 
@@ -51,16 +54,16 @@ function auth_Check() {
 }
 
 // Devuelve la informacion del elemento indicado con formato de tarjeta
-function card_Information_Retrieve(element, image_Route, route, scroll, type = '') {
-    let extra_Class = (scroll) ? '' : 'w-100';
+function card_Information_Retrieve(element, image_Route, route, scroll) {
+    let extra_Class = (scroll) ? 'mx-2' : 'w-100';
 
     return `<div class='card card-Background my-Card my-2 p-2 ${extra_Class}' style='width: 18rem;'>
                 <a href='${route.concat('/', element.id)}'>
                     <div class='type-Image-Card'>
                         <div class='image-Card'>
-                            <img alt='${element.name}' class='card-img' src='${type=='' ? image_Route.concat('/', element.image) : element.front_Page}'>
+                            <img alt='${element.name}' class='card-img' src='${image_Route!='' ? image_Route.concat('/', element.image) : element.front_Page}'>
                         </div>
-                        <p class='type'>${type=='' ? element.type : type}</p>
+                        <p class='type'>${element.type}</p>
                     </div>
                         
                     <div class='card-body'>
@@ -71,16 +74,27 @@ function card_Information_Retrieve(element, image_Route, route, scroll, type = '
 }
 
 // Devuelve tarjetas con la informacion de los elementos
-function cards_Load(image_Route, list, route, type = '') {
+function cards_Load(image_Route, list, route) {
     let container = '';
     let card_Information = '';
 
     list.forEach((element) => {
-        card_Information = card_Information_Retrieve(element, image_Route, route, false, type);
+        card_Information = card_Information_Retrieve(element, image_Route, route, false);
         container += `<article>${card_Information}</article>`;
     });
 
     return container;
+}
+
+// Cargar informacion principal del elemento (nombre, descripcion, ...)
+function element_Main_Info_Load(description, extra_Info, image, name) {
+    if (image != '') {
+        ELEMENT_IMAGE.innerHTML = ` <img alt='${name}' class='card-img img-fluid' src='${(image.includes('http') ? image : ANIME_IMAGE_ROUTE.concat('/', image))}'/>`;
+    }
+    
+    ELEMENT_NAME.innerHTML = `${name}`;
+    ELEMENT_DESCRIPTION.innerHTML = `Sinopsis: ${description}`;
+    EXTRA_INFO.innerHTML = `${extra_Info}`;
 }
 
 // Cambiar a la pagina anterior

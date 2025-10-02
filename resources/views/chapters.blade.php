@@ -5,6 +5,7 @@
     <link href="{{ asset('BOOTSTRAP/CSS/bootstrap.css')}}" rel="stylesheet" />
     <link href="{{ asset('BOOTSTRAP/ICONOS/bootstrap-icons.css')}}" rel="stylesheet" />
     <link href="{{ asset('CSS/chapters.css')}}" rel="stylesheet" />
+    <link href="{{ asset('CSS/element_Info.css')}}" rel="stylesheet" />
     <link href="{{ asset('CSS/main.css')}}" rel="stylesheet" />
     <link href="{{ asset('CSS/media_Chapters.css')}}" rel="stylesheet" />
     <link href="{{ asset('CSS/media_Main.css')}}" rel="stylesheet" />
@@ -27,10 +28,10 @@
 
     <section class="mx-4" id="secondary">
         <article class="card-body anime-Info mt-4 px-2 py-1">
-            <h3 class="mx-2 my-1 px-1" id="anime-Name"></h3>
+            <h3 class="mx-2 my-1 px-1" id="element-Name"></h3>
             <p class="mx-2 my-1 px-1" id="chapter-Number"></p>
-            <p class="mx-2 my-1 px-1" id="extra-Info"></p>
-            <p class="mx-2 my-1 px-1" id="anime-Description"></p>
+            <ul class="extra-Info mx-2 my-1 px-1" id="extra-Info"></ul>
+            <p class="mx-2 my-1 px-1" id="element-Description"></p>
         </article>
         <article class="comments" id="comments"></article>
     </section>
@@ -45,7 +46,7 @@
     <script src="{{ asset('JS/main.js')}}"></script>
     <script>
         // Obtiene informacion del anime y capitulo seleccionado
-        anime_Id = '{{ $anime_Id }}';
+        anime_Id = '{{ $id }}';
         chapter =  '{{ $chapter_Id }}';
 
         if (isNaN(Number(anime_Id))) {
@@ -57,7 +58,7 @@
         }
 
         auth_Check();
-        chapter_Load();
+        chapter_Load('{{ $chapters }}', '{{ $description }}', '{!! $extra_Info !!}', '{{ $name }}');
     </script>
 </body>
 </html>

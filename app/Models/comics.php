@@ -8,7 +8,7 @@ class comics extends Model
 {
     protected $table = 'comics';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'name', 'page_Number', 'front_Page']; 
+    protected $fillable = ['id', 'name', 'description', 'page_Number', 'front_Page', 'type', 'condition']; 
 
     public $timestamps = false;
 }

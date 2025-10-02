@@ -86,4 +86,6 @@ body {
     width: calc(100vw - 0.35rem);
 }
 
-
+#comics-Bookmark-Container, #histories-Bookmark-Container, #comics-Other-List-Container, #histories-Other-List-Container {
+    display: none;
+}

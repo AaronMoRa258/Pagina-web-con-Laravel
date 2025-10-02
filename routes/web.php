@@ -29,14 +29,6 @@ Route::get('/comics/{id_Comic}', [comic_Controller::class, 'comic'])->name('comi
 
 
 
-// Muestra pagina principal de historias
-Route::get('/histories', [history_Controller::class, 'histories']);
-
-// Guarda historia en servidor
-Route::post('/histories/save', [history_Controller::class, 'save'])->name('save_History');
-
-
-
 // Muestra formulario de inicio de sesión
 Route::get('/login', [auth_Controller::class, 'show_Login_Form'])->name('form');
 

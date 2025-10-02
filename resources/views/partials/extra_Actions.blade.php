@@ -1,6 +1,6 @@
 <div class='extra-Actions gap-2'>
     <div class='btn-group'>
-        <button aria-expanded='false' class='btn btn-secondary dropdown-toggle-split list' data-bs-toggle='dropdown' id='main-List' type='button'>
+        <button aria-expanded='false' class='btn btn-secondary dropdown-toggle-split' data-bs-toggle='dropdown' id='main-List' type='button'>
             <i class='bi bi-plus-circle p-1'></i> Agregar a lista
         </button>
         <button aria-expanded='false' class='btn btn-secondary dropdown-toggle dropdown-toggle-split' data-bs-toggle='dropdown' id='list-Dropdown' type='button'></button>

@@ -31,7 +31,7 @@ class anime_Controller extends Controller {
         // Extrae la informacion del anime
         $chapters = $anime->chapters;
         $description = $anime->description;
-        $extra_Info = $anime->type . $separator . $anime->year . $separator . $anime->season . $separator . $anime->condition;
+        $extra_Info = '<li>' . $anime->type . '</li>' . $separator . '<li>' . $anime->year . '</li>' . $separator . '<li>' . $anime->season . '</li>' . $separator . '<li>' . $anime->condition . '</li>';
         $id = $anime->id;
         $image = $anime->image;
         $name = $anime->name;
@@ -41,7 +41,21 @@ class anime_Controller extends Controller {
 
     // Cargar capitulo
     public function chapter($anime_Id, $chapter_Id) {
-        return view('chapters', compact('anime_Id', 'chapter_Id'));
+
+
+        // Realiza consulta a BD
+        $anime = animes::where('id', $anime_Id)->first();
+
+        $separator = '<i class="bi bi-dot"></i>';
+        
+        // Extrae la informacion del anime
+        $chapters = $anime->chapters;
+        $description = $anime->description;
+        $extra_Info = '<li>' . $anime->type . '</li>' . $separator . '<li>' . $anime->year . '</li>' . $separator . '<li>' . $anime->season . '</li>' . $separator . '<li>' . $anime->condition . '</li>';
+        $id = $anime->id;
+        $name = $anime->name;
+        
+        return view('chapters', compact('chapter_Id', 'chapters', 'description', 'extra_Info', 'id', 'name'));
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada

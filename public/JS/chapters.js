@@ -6,7 +6,6 @@ const CHAPTER_NUMBER = document.getElementById('chapter-Number');
 const CHAPTERS_LIST = document.getElementById('chapters-List');
 const COMMENTS_CONTAINER = document.getElementById('comments');
 const DESCRIPTION = document.getElementById('anime-Description');
-const EXTRA_INFO = document.getElementById('extra-Info');
 const NEXT = document.getElementById('next');
 
 // Variables a utilizar
@@ -30,32 +29,24 @@ function chapter_Change(chapter_Number) {
 }
 
 // Carga informacion de capitulo y video
-function chapter_Load() {
-    //  Consulta API para cargar nombre y numero de capitulo
-    fetch(ANIMES_API[0].concat('/', anime_Id))
-    .then((res) => res.json())
-    .then((data) => {
-        DESCRIPTION.innerHTML = `${data.description}`;
-        EXTRA_INFO.innerHTML = `${data.type} <i class='bi bi-dot'></i> ${data.year} <i class='bi bi-dot'></i> ${data.season} <i class='bi bi-dot'></i> ${data.condition}`;
-        ANIME_NAME.innerHTML = `${data.name}`;
+function chapter_Load(chapters, description, extra_Info, name) {
+    element_Main_Info_Load(description, extra_Info, '', name);
 
-        CHAPTER_NUMBER.innerHTML = `Episodio ${chapter}`;
-        let chapters_Info = `<div class='chapter-Info mx-3 my-2'><h4>Estas Viendo</h4> <h5 class='fs-4'>Episodio ${chapter}</h5></div><div class='chapters-List mx-3 my-2'>`;
+    CHAPTER_NUMBER.innerHTML = `Episodio ${chapter}`;
+    let chapters_Info = `<div class='chapter-Info mx-3 my-2'><h4>Estas Viendo</h4> <h5 class='fs-4'>Episodio ${chapter}</h5></div><div class='chapters-List mx-3 my-2'>`;
 
-        for (let i = 1; i <= data.chapters; i++) {
-            chapters_Info += `<button class='`;
+    for (let i = 1; i <= chapters; i++) {
+        chapters_Info += `<button class='`;
 
-            if (chapter == i) {
-                chapters_Info += `actual `;
-            }
-
-            chapters_Info += `btn btn-secondary button-Chapter' onclick='chapter_Change(${i})'>${i}</button>`;
+        if (chapter == i) {
+            chapters_Info += `actual `;
         }
 
-        chapters_Info += '</div>';
+        chapters_Info += `btn btn-secondary button-Chapter' onclick='chapter_Change(${i})'>${i}</button>`;
+    }
 
-        CHAPTERS_LIST.innerHTML = chapters_Info;
-    });
+    chapters_Info += '</div>';
+    CHAPTERS_LIST.innerHTML = chapters_Info;
 
     // Consulta API para cargar video
     fetch(ANIMES_API[0].concat('/', anime_Id, '/', chapter))

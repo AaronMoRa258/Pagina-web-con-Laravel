@@ -42,7 +42,7 @@
       switch (type) {
         case 'comic':
           api_Route = COMICS_API[api];
-          api_Query('', COMIC_ROUTE, 'Comic');
+          api_Query('', COMIC_ROUTE);
           break;
         default:
           api_Route = ANIMES_API[api];
