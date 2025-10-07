@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\followers;
-use App\Models\user;
+use App\Models\Follower;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class user_Controller extends Controller {
+class UserController extends Controller {
     
     // Mostrar formulario de registro
     public function create() {
@@ -37,12 +37,12 @@ class user_Controller extends Controller {
     // Mostrar perfil de usuario especificado
     public function user(Request $request) {
         // Realiza consulta a BD
-        $info_User = user::where('User', $request->User)->first();
-        $followers = followers::where('follow', $request->User)->count();
-        $following = followers::where('user', $request->User)->count();
+        $userInfo = User::where('user', $request->User)->first();
+        $followers = Follower::where('follow', $request->User)->count();
+        $following = Follower::where('user', $request->User)->count();
 
         // Verifica que el usuario exista
-        if (!$info_User) {
+        if (!$userInfo) {
             // Verifica que el usuario este autenticado (haya iniciado sesion)
             if (Auth::user()->User == '') {
                 return redirect('/');
@@ -52,8 +52,8 @@ class user_Controller extends Controller {
         }
 
         // Extrae la informacion del usuario
-        $user = $info_User->User;
-        $name = $info_User->Nombre;
+        $user = $userInfo->user;
+        $name = $userInfo->name;
         
         return view('user', compact('followers', 'following','name', 'user'));
     }

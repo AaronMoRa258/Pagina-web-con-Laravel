@@ -17,18 +17,18 @@
 </head>
 
 <body class="body-Background">
-    @include('partials/header')
+    @include("partials/header")
 
     <section id="main">
-        @include('partials/element_Info')
+        @include("partials/element_Info")
     </section>
 
     <section id="secondary">
         <article class="mt-4 mx-4" id="images"></article>
     </section>
     
-    @include('partials/footer')
-    @include('partials/routes')
+    @include("partials/footer")
+    @include("partials/routes")
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
     <script src="{{ asset('JS/comics.js')}}"></script>
@@ -36,11 +36,11 @@
     <script src="{{ asset('JS/main.js')}}"></script>
     <script>
         // Obtiene informacion del anime seleccionado
-        comic_Id = element_Id = '{{ $id }}';
+        comicId = elementId = "{{ $id }}";
         api = COMICS_API;
 
-        auth_Check();
-        comic_Load('{{ $description }}', '{{ $front_Page }}', '{!! $extra_Info !!}', '{{ $name }}');
+        authCheck();
+        comicLoad("{{ $description }}", "{!! $extraInfo !!}", "{{ $frontPage }}", "{{ $name }}");
     </script>
 </body>
 </html>

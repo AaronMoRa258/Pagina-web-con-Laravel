@@ -12,13 +12,13 @@
     <title>Animes</title>
   </head>
   <body class="body-Background">
-    @include('partials/header')
+    @include("partials/header")
     
     <nav class="navbar navbar-dark navbar-expand-lg">
       <div class="container-fluid px-4">
-        <a class="active navbar-brand my-2 px-2" id="animes-Info" onclick="active_List('Animes')">Animes</a>
-        <a class="navbar-brand my-2 px-2" id="comics-Info" onclick="active_List('Comics')">Comics</a>
-        <a class="navbar-brand my-2 px-2" id="histories-Info" onclick="active_List('Histories')">Historias</a>
+        <a class="active navbar-brand my-2 px-2" id="animes-Info" onclick="activeList('Animes')">Animes</a>
+        <a class="navbar-brand my-2 px-2" id="comics-Info" onclick="activeList('Comics')">Comics</a>
+        <a class="navbar-brand my-2 px-2" id="histories-Info" onclick="activeList('Histories')">Historias</a>
       </div>
     </nav>
 
@@ -40,7 +40,7 @@
         </article>
     </section>
     <section id="secondary">
-      @include('partials/lists_Container', [
+      @include("partials/lists_Container", [
         "id_1" => "animes-Bookmark-Container",
         "id_2" => "anime-Bookmark-Elements",
         "id_3" => "animes-Other-List-Container",
@@ -48,14 +48,14 @@
         ])
       
 
-      @include('partials/lists_Container', [
+      @include("partials/lists_Container", [
         "id_1" => "comics-Bookmark-Container",
         "id_2" => "comic-Bookmark-Elements",
         "id_3" => "comics-Other-List-Container",
         "id_4" => "comic-Other-List-Elements"
         ])
       
-        @include('partials/lists_Container', [
+        @include("partials/lists_Container", [
         "id_1" => "histories-Bookmark-Container",
         "id_2" => "history-Bookmark-Elements",
         "id_3" => "histories-Other-List-Container",
@@ -63,21 +63,21 @@
         ])
     </section>
 
-    @include('partials/footer')
-    @include('partials/routes')
+    @include("partials/footer")
+    @include("partials/routes")
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
     <script src="{{ asset('JS/main.js')}}"></script>
     <script src="{{ asset('JS/user.js')}}"></script>
     <script>
-      FOLLOWERS.innerHTML = 'Seguidores: {{ $followers }}';
-      FOLLOWING.innerHTML = 'Siguiendo: {{ $following }}';
-      NAME.innerHTML = '{{ $name }}';
-      USER.innerHTML = '@ {{ $user }}';
+      FOLLOWERS.innerHTML = "Seguidores: {{ $followers }}";
+      FOLLOWING.innerHTML = "Siguiendo: {{ $following }}";
+      NAME.innerHTML = "{{ $name }}";
+      USER.innerHTML = "@ {{ $user }}";
 
-      auth_Check();
-      bookmarks_Load('{{ $user }}');
-      list_Check('{{ $user }}');
+      authCheck();
+      bookmarksLoad("{{ $user }}");
+      listCheck("{{ $user }}");
     </script>
   </body>
 </html>

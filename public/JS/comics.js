@@ -1,27 +1,27 @@
 // Obtiene elementos para su posterior modificacion
-const IMAGES = document.getElementById('images');
+const IMAGES = document.getElementById("images");
 
 // Variables a utilizar
-let comic_Id = 1;
+let comicId = 1;
 
 // Carga lista de comics
-function comic_Load(description, front_Page, extra_Info, name) {
-    element_Main_Info_Load(description, extra_Info, front_Page, name);
+function comicLoad(description, extraInfo, frontPage, name) {
+    elementInfoLoad(description, extraInfo, frontPage, name);
 
     // Consulta API para obtener las imagenes del comic
-    fetch(COMICS_API[0].concat('/', comic_Id))
+    fetch(COMICS_API[0].concat("/", comicId))
     .then((res) => res.json())
     .then((data) => {
-        IMAGES.innerHTML = '';
-        let Images = '';
+        IMAGES.innerHTML = "";
+        let images = "";
 
-        if (data.message == 'No se encontraron resultados') {
-            CONTAINER_ELEMENTS.setAttribute('style', 'grid-template-columns: 1fr !important');
+        if (data.message == "No se encontraron resultados") {
+            CONTAINER_ELEMENTS.setAttribute("style", "grid-template-columns: 1fr !important");
             CONTAINER_ELEMENTS.innerHTML += `
-            <article class='mt-2'>
-                <div class='card card-Background p-2'>
-                    <div class='card-body'>
-                        <p class='fs-6 mt-2 mx-3 text-center' style='color: var(--light-color);'>${data.message}</p>
+            <article class="mt-2">
+                <div class="card card-Background p-2">
+                    <div class="card-body">
+                        <p class="fs-6 mt-2 mx-3 text-center" style="color: var(--light-color);">${data.message}</p>
                     </div>
                 </div>
               </article>
@@ -31,15 +31,15 @@ function comic_Load(description, front_Page, extra_Info, name) {
 
         
         data.forEach((image) => {
-            Images += `<img src='${image.link}'>`;
+            images += `<img src="${image.link}">`;
         });
 
-        IMAGES.innerHTML = Images;
+        IMAGES.innerHTML = images;
     });
 
-    BOOKMARK_ICON = document.getElementById('bookmark-Icon');
-    MAIN_LIST = document.getElementById('main-List');
+    BOOKMARK_ICON = document.getElementById("bookmark-Icon");
+    MAIN_LIST = document.getElementById("main-List");
     
-    bookmark_Check();
-    list_Check();
+    bookmarkCheck();
+    listCheck();
 }

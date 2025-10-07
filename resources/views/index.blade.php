@@ -13,23 +13,23 @@
     <title>Animes</title>
   </head>
   <body class="body-Background">
-    @include('partials/header')
-    @include('partials/nav')
+    @include("partials/header")
+    @include("partials/nav")
     
     <section id="main">
       <div class="content mt-4 mx-4" id="container-Elements"></div>
       <div class="page-Changer">
-        <button class="btn mt-4 mx-4 p-2" disabled id="before" onclick="page_Before()">
+        <button class="btn mt-4 mx-4 p-2" disabled id="before" onclick="pageBefore()">
           Anterior Página
         </button>
-        <button class="btn mt-4 mx-4 p-2" id="next" onclick="page_Next()">
+        <button class="btn mt-4 mx-4 p-2" id="next" onclick="pageNext()">
           Siguiente Página
         </button>
       </div>
     </section>
 
-    @include('partials/footer')
-    @include('partials/routes')
+    @include("partials/footer")
+    @include("partials/routes")
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
     <script src="{{ asset('JS/main.js')}}"></script>
@@ -40,17 +40,17 @@
       type = "{{ $type }}";
       
       switch (type) {
-        case 'comic':
-          api_Route = COMICS_API[api];
-          api_Query('', COMIC_ROUTE);
+        case "comic":
+          apiRoute = COMICS_API[api];
+          apiQuery("", COMIC_ROUTE);
           break;
         default:
-          api_Route = ANIMES_API[api];
-          api_Query(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
+          apiRoute = ANIMES_API[api];
+          apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
           break;
       }
 
-      auth_Check();
+      authCheck();
     </script>
   </body>
 </html>

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\user;
+use \App\Models\User;
 use \App\Models\Sessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class auth_Controller extends Controller {
+class AuthController extends Controller {
     
     // Procesar login
     public function login(Request $Request) {

@@ -1,25 +1,25 @@
 // Obtiene elementos para su posterior modificacion
-const CONTAINER_ELEMENTS = document.getElementById('container-Elements');
-const ELEMENT_IMAGE = document.getElementById('element-Image');
-const ELEMENT_NAME = document.getElementById('element-Name');
-const ELEMENT_DESCRIPTION = document.getElementById('element-Description');
-const EXTRA_INFO = document.getElementById('extra-Info');
-const INPUT_SEARCH = document.getElementById('input-Search');
-const USER_ICON = document.getElementById('user-Icon');
-const USER_NAME = document.getElementById('user-Name');
+const CONTAINER_ELEMENTS = document.getElementById("container-Elements");
+const ELEMENT_IMAGE = document.getElementById("element-Image");
+const ELEMENT_NAME = document.getElementById("element-Name");
+const ELEMENT_DESCRIPTION = document.getElementById("element-Description");
+const EXTRA_INFO = document.getElementById("extra-Info");
+const INPUT_SEARCH = document.getElementById("input-Search");
+const USER_ICON = document.getElementById("user-Icon");
+const USER_NAME = document.getElementById("user-Name");
 
 // Variables a utilizar
-let api_Route = '';
+let apiRoute = "";
 let page = 1;
-let query = '';
-let type = '';
+let query = "";
+let type = "";
 
 // Consulta api para recuperar elementos segun ruta especificada
-function api_Query(image_Route, route) {
-    fetch(api_Route.concat('/', query, '?P=', page))
+function apiQuery(imageRoute, route) {
+    fetch(apiRoute.concat("/", query, "?P=", page))
     .then((res) => res.json())
     .then((data) => {
-        CONTAINER_ELEMENTS.innerHTML = '';
+        CONTAINER_ELEMENTS.innerHTML = "";
         before.disabled = page === 1;
         next.disabled = (data.length < 15) || (data.length == null);
 
@@ -28,13 +28,13 @@ function api_Query(image_Route, route) {
             return;
         }
 
-        if (data.message == 'No se encontraron resultados') {
-            CONTAINER_ELEMENTS.setAttribute('style', 'grid-template-columns: 1fr !important');
+        if (data.message == "No se encontraron resultados") {
+            CONTAINER_ELEMENTS.setAttribute("style", "grid-template-columns: 1fr !important");
             CONTAINER_ELEMENTS.innerHTML += `
-            <article class='mt-2'>
-                <div class='card card-Background p-2'>
-                    <div class='card-body'>
-                        <p class='fs-6 mt-2 mx-3 text-center' style='color: var(--light-color);'>${data.message}</p>
+            <article class="mt-2">
+                <div class="card card-Background p-2">
+                    <div class="card-body">
+                        <p class="fs-6 mt-2 mx-3 text-center" style="color: var(--light-color);">${data.message}</p>
                     </div>
                 </div>
               </article>
@@ -42,63 +42,61 @@ function api_Query(image_Route, route) {
             return;
         }
 
-        CONTAINER_ELEMENTS.innerHTML = cards_Load(image_Route, data, route);
+        CONTAINER_ELEMENTS.innerHTML = cardsLoad(data, imageRoute, route);
     });
 }
 
 // Cambiar icono de usuario segun haya o no iniciado sesion
-function auth_Check() {
-    let new_Class = (login) ? 'bi-person-fill' : 'bi-person';
-
-    USER_ICON.classList.add(new_Class);
+function authCheck() {
+    USER_ICON.classList.add((login) ? "bi-person-fill" : "bi-person");
 }
 
 // Devuelve la informacion del elemento indicado con formato de tarjeta
-function card_Information_Retrieve(element, image_Route, route, scroll) {
-    let extra_Class = (scroll) ? 'mx-2' : 'w-100';
+function cardInformationRetrieve(element, imageRoute, route, scroll) {
+    let extraClass = (scroll) ? "mx-2" : "w-100";
 
-    return `<div class='card card-Background my-Card my-2 p-2 ${extra_Class}' style='width: 18rem;'>
-                <a href='${route.concat('/', element.id)}'>
-                    <div class='type-Image-Card'>
-                        <div class='image-Card'>
-                            <img alt='${element.name}' class='card-img' src='${image_Route!='' ? image_Route.concat('/', element.image) : element.front_Page}'>
+    return `<div class="card card-Background my-Card my-2 p-2 ${extraClass}" style="width: 18rem;">
+                <a href="${route.concat("/", element.id)}">
+                    <div class="type-Image-Card">
+                        <div class="image-Card">
+                            <img alt="${element.name}" class="card-img" src="${imageRoute!="" ? imageRoute.concat("/", element.image) : element.front_page}">
                         </div>
-                        <p class='type'>${element.type}</p>
+                        <p class="type">${element.type}</p>
                     </div>
                         
-                    <div class='card-body'>
-                        <p class='fs-6 mt-2 mx-3 text-center'>${title_Len_Define(element.name)}</p>
+                    <div class="card-body">
+                        <p class="fs-6 mt-2 mx-3 text-center">${titleLengthDefine(element.name)}</p>
                     </div>
                 </a>
             </div>`;
 }
 
 // Devuelve tarjetas con la informacion de los elementos
-function cards_Load(image_Route, list, route) {
-    let container = '';
-    let card_Information = '';
+function cardsLoad(data, imageRoute, route) {
+    let container = "";
+    let cardInformation = "";
 
-    list.forEach((element) => {
-        card_Information = card_Information_Retrieve(element, image_Route, route, false);
-        container += `<article>${card_Information}</article>`;
+    data.forEach((element) => {
+        cardInformation = cardInformationRetrieve(element, imageRoute, route, false);
+        container += `<article>${cardInformation}</article>`;
     });
 
     return container;
 }
 
 // Cargar informacion principal del elemento (nombre, descripcion, ...)
-function element_Main_Info_Load(description, extra_Info, image, name) {
-    if (image != '') {
-        ELEMENT_IMAGE.innerHTML = ` <img alt='${name}' class='card-img img-fluid' src='${(image.includes('http') ? image : ANIME_IMAGE_ROUTE.concat('/', image))}'/>`;
+function elementInfoLoad(description, extraInfo, image, name) {
+    if (image != "") {
+        ELEMENT_IMAGE.innerHTML = ` <img alt="${name}" class="card-img img-fluid" src="${(image.includes("http") ? image : ANIME_IMAGE_ROUTE.concat("/", image))}"/>`;
     }
     
     ELEMENT_NAME.innerHTML = `${name}`;
     ELEMENT_DESCRIPTION.innerHTML = `Sinopsis: ${description}`;
-    EXTRA_INFO.innerHTML = `${extra_Info}`;
+    EXTRA_INFO.innerHTML = `${extraInfo}`;
 }
 
 // Cambiar a la pagina anterior
-function page_Before() {
+function pageBefore() {
     if (page <= 1) {
         return;
     }
@@ -106,32 +104,32 @@ function page_Before() {
     page--;
 
     switch (type) {
-        case 'comic':
-            api_Query('', COMIC_ROUTE, 'Comic');
+        case "comic":
+            apiQuery("", COMIC_ROUTE, "Comic");
             break;
         default:
-            api_Query(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
+            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
             break;
     }
 }
 
 // Cambiar a la pagina siguiente
-function page_Next() {
+function pageNext() {
     page++;
     
     switch (type) {
-        case 'comic':
-            api_Query('', COMIC_ROUTE, 'Comic');
+        case "comic":
+            apiQuery("", COMIC_ROUTE, "Comic");
             break;
         default:
-            api_Query(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
+            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
             break;
     }
 }
 
 // Realiza busqueda de cadena ingresada
 function search() {
-    if (INPUT_SEARCH.value != '') {
+    if (INPUT_SEARCH.value != "") {
         switch(window.location.href) {
             case COMIC_ROUTE:
                 window.location.href = `/comics/search/${INPUT_SEARCH.value}`;
@@ -144,10 +142,10 @@ function search() {
 }
 
 // Cerrar sesion o mandar a formulario de login segun sea el caso
-function sign_Up_Login(val) {
+function signUpLogin(val) {
     let user = USER_NAME.innerHTML.trim();
     
-    if (user != 'Iniciar Sesión') {
+    if (user != "Iniciar Sesión") {
         window.location.href = `/user/${user}`;
         return;
     }
@@ -156,27 +154,27 @@ function sign_Up_Login(val) {
 }
 
 // Devuelve el titulo con maximo 2 lineas y 24 caracteres por linea
-function title_Len_Define(title) {
-    let Length = 0;
-    let New = '';
-    let Words = title.split(' ');
+function titleLengthDefine(title) {
+    let length = 0;
+    let newTitle = "";
+    let words = title.split(" ");
 
-    Words.some(Word => {
-        Length += Word.length + 1;
+    words.some(word => {
+        length += word.length + 1;
 
-        if (Length <= 36) {
-            New += Word + ' ';
-        } else if (!New.includes('...')) {
-            New += ' ...';
+        if (length <= 36) {
+            newTitle += word + " ";
+        } else if (!newTitle.includes("...")) {
+            newTitle += " ...";
         }
     });
 
-    return New;
+    return newTitle;
 }
 
 // Evento de teclado para mandar a llamar la funcion de busqueda
-INPUT_SEARCH.addEventListener('keypress', (event) => {
-    if (event.key == 'Enter') {
+INPUT_SEARCH.addEventListener("keypress", (event) => {
+    if (event.key == "Enter") {
         search();
     }
 });

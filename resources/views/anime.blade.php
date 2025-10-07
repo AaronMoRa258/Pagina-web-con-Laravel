@@ -18,15 +18,15 @@
 </head>
 
 <body class="body-Background">
-    @include('partials/header')
+    @include("partials/header")
 
     <section id="main">
-        @include('partials/element_Info')
+        @include("partials/element_Info")
         <article class="mt-4 mx-4" id="chapters"></article>
     </section>
     
-    @include('partials/footer')
-    @include('partials/routes')
+    @include("partials/footer")
+    @include("partials/routes")
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
     <script src="{{ asset('JS/anime.js')}}"></script>
@@ -34,11 +34,11 @@
     <script src="{{ asset('JS/main.js')}}"></script>
     <script>
         // Obtiene informacion del anime seleccionado
-        anime_Id = element_Id = '{{ $id }}';
+        animeId = elementId = "{{ $id }}";
         api = ANIMES_API;
-
-        auth_Check();
-        anime_Load('{{ $chapters }}', '{{ $description }}', '{!! $extra_Info !!}', '{{ $image }}', '{{ $name }}');
+        
+        animeLoad("{{ $description }}", "{!! $extraInfo !!}", "{{ $image }}", "{{ $name }}", "{{ $chaptersNumber }}");
+        authCheck();
     </script>
 </body>
 </html>

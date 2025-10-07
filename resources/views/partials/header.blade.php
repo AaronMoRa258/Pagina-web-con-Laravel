@@ -10,14 +10,14 @@
                 <button class="btn btn-secondary" id="button-Search" onclick="search()" type="button"><i class="bi bi-search"></i></button>
             </div>
             <div class="user">
-                <h5 class="user-Name" id="user-Name" onclick="sign_Up_Login('{{ route('form') }}')">
+                <h5 class="user-Name" id="user-Name" onclick="signUpLogin('{{ route('form') }}')">
                     @if (Auth::check())
-                        {{ Auth::user()->User }}
+                        {{ Auth::user()->user }}
                     @else
                         Iniciar Sesión
                     @endif
                 </h5>
-                <i class="bi user-Icon" id="user-Icon" onclick="sign_Up_Login('{{ route('form') }}')"></i>
+                <i class="bi user-Icon" id="user-Icon" onclick="signUpLogin('{{ route('form') }}')"></i>
             </div>
         </div>
     </div>
