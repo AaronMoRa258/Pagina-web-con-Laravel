@@ -19,6 +19,7 @@
 .image-Card {
     height: 50vh;
     mask: url('/Mask.svg') no-repeat left bottom/cover;
+    max-height: 300px;
     max-width: 250px;
     object-fit: cover;
     overflow: hidden;
@@ -45,7 +46,7 @@
 /*---------- ID */
 /*---------- COMBINADOS Y PSEUDOCLASES */
 .image-Card img {
-    height: 100%;
+    height: auto;
     object-fit: cover;
     width: 100%;
 }

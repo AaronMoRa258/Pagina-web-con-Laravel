@@ -12,13 +12,13 @@
     <title>Animes</title>
   </head>
   <body class="body-Background">
-    @include('partials/header')
+    @include("partials/header")
     
     <nav class="navbar navbar-dark navbar-expand-lg">
       <div class="container-fluid px-4">
-        <a class="active navbar-brand my-2 px-2" id="animes-Info" onclick="active_List('Animes')">Animes</a>
-        <a class="navbar-brand my-2 px-2" id="comics-Info" onclick="active_List('Comics')">Comics</a>
-        <a class="navbar-brand my-2 px-2" id="histories-Info" onclick="active_List('Histories')">Historias</a>
+        <a class="active navbar-brand my-2 px-2" id="animes-Info" onclick="activeList('Animes')">Animes</a>
+        <a class="navbar-brand my-2 px-2" id="comics-Info" onclick="activeList('Comics')">Comics</a>
+        <a class="navbar-brand my-2 px-2" id="histories-Info" onclick="activeList('Histories')">Historias</a>
       </div>
     </nav>
 
@@ -40,46 +40,44 @@
         </article>
     </section>
     <section id="secondary">
-      <article id="animes-Bookmark-Container">
-        <div class="lists mt-4 mx-4">
-          <div class="container">
-            <div class="row">
-              <h3 class="light-Color list-Title">Favoritos</h3>
-            </div>
-            <div class="row">
-              <div class="elements-List" id="elements-Bookmark"></div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article id="animes-Other-List-Container">
-        <div class="lists mt-4 mx-4" id="other-List"></div>
-      </article>
+      @include("partials/lists_Container", [
+        "id_1" => "animes-Bookmark-Container",
+        "id_2" => "anime-Bookmark-Elements",
+        "id_3" => "animes-Other-List-Container",
+        "id_4" => "anime-Other-List-Elements"
+        ])
       
 
-      <article id="comics-Bookmark-Container"></article>
-      <article id="comics-Other-List-Container"></article>
-
-      <article id="histories-Bookmark-Container"></article>
-      <article id="histories-Other-List-Container"></article>
+      @include("partials/lists_Container", [
+        "id_1" => "comics-Bookmark-Container",
+        "id_2" => "comic-Bookmark-Elements",
+        "id_3" => "comics-Other-List-Container",
+        "id_4" => "comic-Other-List-Elements"
+        ])
+      
+        @include("partials/lists_Container", [
+        "id_1" => "histories-Bookmark-Container",
+        "id_2" => "history-Bookmark-Elements",
+        "id_3" => "histories-Other-List-Container",
+        "id_4" => "history-Other-List-Elements"
+        ])
     </section>
 
-    @include('partials/footer')
-    @include('partials/routes')
+    @include("partials/footer")
+    @include("partials/routes")
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
-    <script src="{{ asset('JS/index.js')}}"></script>
     <script src="{{ asset('JS/main.js')}}"></script>
     <script src="{{ asset('JS/user.js')}}"></script>
     <script>
-      FOLLOWERS.innerHTML = 'Seguidores: {{ $Followers }}';
-      FOLLOWING.innerHTML = 'Siguiendo: {{ $Following }}';
-      NAME.innerHTML = '{{ $Name }}';
-      USER.innerHTML = '@ {{ $User }}';
+      FOLLOWERS.innerHTML = "Seguidores: {{ $followers }}";
+      FOLLOWING.innerHTML = "Siguiendo: {{ $following }}";
+      NAME.innerHTML = "{{ $name }}";
+      USER.innerHTML = "@ {{ $user }}";
 
-      auth_Check();
-      bookmarks_Load('{{ $User }}');
-      list_Check('{{ $User }}');
+      authCheck();
+      bookmarksLoad("{{ $user }}");
+      listCheck("{{ $user }}");
     </script>
   </body>
 </html>

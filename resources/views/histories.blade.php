@@ -62,8 +62,7 @@
     @include('partials/routes')
 
     <script src="{{ asset('BOOTSTRAP/JS/bootstrap.bundle.js')}}"></script>
-    <script src="{{ asset('JS/Main.js')}}"></script>
-    <script src="{{ asset('JS/Scripts.js')}}"></script>
+    <script src="{{ asset('JS/main.js')}}"></script>
     <script>
         const Content = document.getElementById("Content");
 

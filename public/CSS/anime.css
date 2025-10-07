@@ -23,138 +23,22 @@ body {
     'PiePag';
 }
 
-nav {
-    display: none !important;
-}
-
 p {
     font-size: 1rem !important;
 }
 
 /*---------- CLASES */
-.anime-Background-Image {
-    background-image: url("/IMG/Fondo.avif");
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 10px;
-    height: 100%;
-    position: absolute;
-    right: 0%;
-    top: 0%;
-    width: 75%;
-    z-index: -1;
-}
-
-.anime-Gradient {
-    background: linear-gradient(45deg, var(--bg-card) 40%, rgba(0, 90, 90, 0.3) 80%, rgba(0, 90, 90, 0) 100%);
-}
-
-.anime-Image {
-    flex: 0 0 auto;
-    width: 16.66666667%;
-}
-
-.card-body {
-    color: var(--light-color);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: justify;
-}
-
 .chapter-List {
     background-color: var(--bg-button) !important;
     color: var(--light-color);
 }
 
-.extra-Actions {
-    display: flex;
-}
-
-.information {
-    width: 80%;
-}
-
-.list-Element {
-    background-color: transparent;
-    color: var(--light-color);
-    cursor: pointer;
-}
-
-.lists {
-    background-color: var(--bg-main);
-    border-radius: 10px;
-    min-width: 100%;
-    transform: translate(0px, 45px) !important;
-}
-
 /*---------- ID */
-#anime-Description {
-    max-height: 120px;
-    overflow-y: auto;
-    padding-right: 0.25rem !important;
-}
-
-#button-Bookmark {
-    background-color: transparent;
-    border: var(--bg-button-hover) 1px solid;
-}
-
 #main {
     grid-area: Contenido_1;
 }
 
-#main-List {
-    min-width: 148px;
-    text-align: left;
-}
-
 /*---------- COMBINADOS Y PSEUDOCLASES */
-.btn-group button {
-    background-color: var(--bg-button-hover);
-    border: var(--bg-card) 1px solid !important;
-    padding: 0.4rem 0.25rem !important;
-}
-
-.btn-group button:active {
-    background-color: var(--bg-button-hover) !important;
-    border: var(--bg-button-hover) 1px solid !important;
-}
-
-.btn-group button:focus {
-    background-color: var(--bg-button-hover);
-    border: var(--bg-button-hover) 1px solid !important;
-}
-
-.btn-group button:hover {
-    background-color: var(--bg-button);
-    border: var(--bg-button) 1px solid !important;
-}
-
-.card-title, #bookmark-Icon {
-    font-size: 1.2rem !important;
-}
-
 .chapter-List:hover {
     background-color: var(--bg-button-hover) !important;
-}
-
-.extra-Info li, .extra-Info i {
-    display: inline-block;
-    width: fit-content;
-}
-
-.list-Element:hover {
-    background-color: var(--bg-button-hover);
-    border-radius: 10px;
-    color: var(--light-color);
-}
-
-#bookmark-Icon::before {
-    vertical-align: -0.3rem !important;
-}
-
-#button-Bookmark:hover {
-    background-color: var(--bg-button);
-    border: var(--bg-button) 1px solid;
 }

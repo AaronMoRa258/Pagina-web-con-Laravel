@@ -2,8 +2,12 @@
 /*---------- ETIQUETAS */
 /*---------- CLASES */
 /*---------- ID */
+#bookmark-Icon {
+    font-size: 1.1rem !important;
+}
+
 /*---------- COMBINADOS Y PSEUDOCLASES */
-.list-group li {
+.lists li, #main-List {
     font-size: 0.9rem !important;
 }
 
@@ -13,8 +17,12 @@
 /*---------- ETIQUETAS */
 /*---------- CLASES */
 /*---------- ID */
+#bookmark-Icon {
+    font-size: 1.1rem !important;
+}
+
 /*---------- COMBINADOS Y PSEUDOCLASES */
-.list-group li {
+.lists li, #main-List {
     font-size: 0.9rem !important;
 }
 
@@ -24,8 +32,12 @@
 /*---------- ETIQUETAS */
 /*---------- CLASES */
 /*---------- ID */
+#bookmark-Icon {
+    font-size: 1rem !important;
+}
+
 /*---------- COMBINADOS Y PSEUDOCLASES */
-.list-group li {
+.lists li, #main-List {
     font-size: 0.8rem !important;
 }
 

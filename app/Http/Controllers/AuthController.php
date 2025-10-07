@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\user;
+use \App\Models\User;
 use \App\Models\Sessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class auth_Controller extends Controller {
+class AuthController extends Controller {
     
     // Procesar login
     public function login(Request $Request) {
+        // Recupera credenciales ingresadas
         $Credentials = [
             'User' => $Request->User,
             'password' => $Request->Password,
         ];
 
+        // Verificar credenciales
         if (Auth::attempt($Credentials)) {
             // Login exitoso
             $Request->session()->regenerate(); // Protege contra session fixation

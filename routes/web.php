@@ -1,72 +1,65 @@
 <?php
 
-use App\Http\Controllers\anime_Controller;
-use App\Http\Controllers\auth_Controller;
-use App\Http\Controllers\comic_Controller;
-use App\Http\Controllers\history_Controller;
-use App\Http\Controllers\user_Controller;
+use App\Http\Controllers\AnimeChapterController;
+use App\Http\Controllers\AnimeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComicController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Muestra pagina principal (Lista de animes)
-Route::get('/', [anime_Controller::class, 'index'])->name('animes');
+Route::get("/", [AnimeController::class, "index"])->name("animes.index");
 
 // Muestra animes cuyo nombre contiene la cadena buscada
-Route::get('/animes/search/{query}', [anime_Controller::class, 'query'])->name('anime_Query');
+Route::get("/animes/search/{query}", [AnimeController::class, "query"])->name("animes.search");
 
 // Muestra informacion sobre el anime seleccionado
-Route::get('/animes/{id_Anime}', [anime_Controller::class, 'anime'])->name('anime');
+Route::get("/animes/{id_Anime}", [AnimeController::class, "show"])->name("animes.show");
 
 
 
 // Muestra pagina principal de comics
-Route::get('/comics', [comic_Controller::class, 'index'])->name('comics');
+Route::get("/comics", [ComicController::class, "index"])->name("comics.index");
 
 // Muestra comics cuyo nombre contiene la cadena buscada
-Route::get('/comics/search/{query}', [comic_Controller::class, 'query'])->name('comic_Query');
+Route::get("/comics/search/{query}", [ComicController::class, "query"])->name("comics.search");
 
 // Muestra el comic seleccionado
-Route::get('/comics/{id_Comic}', [comic_Controller::class, 'comic'])->name('comic');
-
-
-
-// Muestra pagina principal de historias
-Route::get('/histories', [history_Controller::class, 'histories']);
-
-// Guarda historia en servidor
-Route::post('/histories/save', [history_Controller::class, 'save'])->name('save_History');
+Route::get("/comics/{id_Comic}", [ComicController::class, "show"])->name("comics.show");
 
 
 
 // Muestra formulario de inicio de sesión
-Route::get('/login', [auth_Controller::class, 'show_Login_Form'])->name('form');
+Route::get("/login", [AuthController::class, "show_Login_Form"])->name("form");
 
 // Envia datos de inicio de sesión
-Route::post('/login', [auth_Controller::class, 'login'])->name('login_Submit');
+Route::post("/login", [AuthController::class, "login"])->name("login_Submit");
 
 
 
 // Cierra sesión
-Route::get('/logout', [auth_Controller::class, 'logout'])->name('logout');
+Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 
 
 
 // Muestra el formulario de registro
-Route::get('/register', [user_Controller::class, 'create'])->name('register');
+Route::get("/register", [UserController::class, "create"])->name("register");
 
 
 
 // Envia datos para la creacion del usuario
-Route::post('/user/store', [user_Controller::class, 'store'])->name('user_store');
+Route::post("/user/store", [UserController::class, "store"])->name("user_store");
 
 
 
 // Presentar el archivo de video seleccionado
-Route::get('/{Id_Anime}/cap-{Chapter}', [anime_Controller::class, 'chapter'])->name('chapter');
+Route::get("/{Id_Anime}/cap-{Chapter}", [AnimeChapterController::class, "show"])->name("chapters.show");
 
 
 
 // Proteger rutas con middleware de autenticación para evitar que usuario no logeados accedan a ellas
-Route::middleware(['auth'])->group(function () {
+Route::middleware(["auth"])->group(function () {
     // Muestra perfil de usuario logeado
-    Route::get('/user/{User}', [user_Controller::class, 'user'])->name('profile');
+    Route::get("/user/{User}", [UserController::class, "user"])->name("profile");
 });

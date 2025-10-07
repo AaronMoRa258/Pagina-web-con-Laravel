@@ -32,7 +32,7 @@ body {
 }
 
 .my-Card {
-    height: 100% !important;
+    height: 95% !important;
     max-width: 250px;
 }
 
@@ -59,4 +59,3 @@ body {
     background-color: var(--bg-button-hover);
     color: var(--light-color);
 }
-
