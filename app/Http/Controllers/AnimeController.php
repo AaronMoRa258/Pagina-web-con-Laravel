@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Anime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AnimeController extends Controller {
     
     // Cargar lista de animes
     public function index() {
-        $api = 0;
-        $query = "";
-        $type = "anime";
-
-        return view("index", compact("api", "query", "type"));
+        return Inertia::render("Index", [
+            "api" => "",
+            "query" => "",
+            "type" => "anime",
+            "login" => Auth::check()
+        ]);
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada

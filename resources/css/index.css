@@ -16,7 +16,7 @@
 }
 
 body {
-    display: grid;
+    display: grid !important;
     grid-template-areas: 'Cabecera' 
     'Menu' 
     'Contenido_1' 

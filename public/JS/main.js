@@ -15,73 +15,24 @@ let query = "";
 let type = "";
 
 // Consulta api para recuperar elementos segun ruta especificada
-function apiQuery(imageRoute, route) {
-    fetch(apiRoute.concat("/", query, "?P=", page))
-    .then((res) => res.json())
-    .then((data) => {
-        CONTAINER_ELEMENTS.innerHTML = "";
-        before.disabled = page === 1;
-        next.disabled = (data.length < 15) || (data.length == null);
+export async function apiQuery(apiRoute, query, page) {
+    const res = await fetch(`${apiRoute[0]}/${query}?P=${page}`);
+    const data = await res.json();
+    const noMore = !data || data.length < 15;
 
-        if (data.length === 0 && page > 1) {
-            page--; // Si no hay más resultados, retrocede
-            return;
-        }
-
-        if (data.message == "No se encontraron resultados") {
-            CONTAINER_ELEMENTS.setAttribute("style", "grid-template-columns: 1fr !important");
-            CONTAINER_ELEMENTS.innerHTML += `
-            <article class="mt-2">
-                <div class="card card-Background p-2">
-                    <div class="card-body">
-                        <p class="fs-6 mt-2 mx-3 text-center" style="color: var(--light-color);">${data.message}</p>
-                    </div>
-                </div>
-              </article>
-            `;
-            return;
-        }
-
-        CONTAINER_ELEMENTS.innerHTML = cardsLoad(data, imageRoute, route);
+    data.forEach((element) => {
+        element.newName = titleLengthDefine(element.name);
     });
+
+    return {
+        items: data,
+        hasMore: !noMore
+    };
 }
 
 // Cambiar icono de usuario segun haya o no iniciado sesion
-function authCheck() {
-    USER_ICON.classList.add((login) ? "bi-person-fill" : "bi-person");
-}
-
-// Devuelve la informacion del elemento indicado con formato de tarjeta
-function cardInformationRetrieve(element, imageRoute, route, scroll) {
-    let extraClass = (scroll) ? "mx-2" : "w-100";
-
-    return `<div class="card card-Background my-Card my-2 p-2 ${extraClass}" style="width: 18rem;">
-                <a href="${route.concat("/", element.id)}">
-                    <div class="type-Image-Card">
-                        <div class="image-Card">
-                            <img alt="${element.name}" class="card-img" src="${imageRoute!="" ? imageRoute.concat("/", element.image) : element.front_page}">
-                        </div>
-                        <p class="type">${element.type}</p>
-                    </div>
-                        
-                    <div class="card-body">
-                        <p class="fs-6 mt-2 mx-3 text-center">${titleLengthDefine(element.name)}</p>
-                    </div>
-                </a>
-            </div>`;
-}
-
-// Devuelve tarjetas con la informacion de los elementos
-function cardsLoad(data, imageRoute, route) {
-    let container = "";
-    let cardInformation = "";
-
-    data.forEach((element) => {
-        cardInformation = cardInformationRetrieve(element, imageRoute, route, false);
-        container += `<article>${cardInformation}</article>`;
-    });
-
-    return container;
+export function authCheck(login) {
+    document.getElementById("user-Icon").classList.add((login) ? "bi-person-fill" : "bi-person");
 }
 
 // Cargar informacion principal del elemento (nombre, descripcion, ...)
@@ -172,9 +123,53 @@ function titleLengthDefine(title) {
     return newTitle;
 }
 
+
+
+
+
+
+
+
+
+
+
 // Evento de teclado para mandar a llamar la funcion de busqueda
-INPUT_SEARCH.addEventListener("keypress", (event) => {
+/* INPUT_SEARCH.addEventListener("keypress", (event) => {
     if (event.key == "Enter") {
         search();
     }
 });
+ */
+
+// Devuelve la informacion del elemento indicado con formato de tarjeta
+function cardInformationRetrieve(element, imageRoute, route, scroll) {
+    let extraClass = (scroll) ? "mx-2" : "w-100";
+
+    return `<div class="card card-Background my-Card my-2 p-2 ${extraClass}" style="width: 18rem;">
+                <a href="${route.concat("/", element.id)}">
+                    <div class="type-Image-Card">
+                        <div class="image-Card">
+                            <img alt="${element.name}" class="card-img" src="${imageRoute!="" ? imageRoute.concat("/", element.image) : element.front_page}">
+                        </div>
+                        <p class="type">${element.type}</p>
+                    </div>
+                        
+                    <div class="card-body">
+                        <p class="fs-6 mt-2 mx-3 text-center">${titleLengthDefine(element.name)}</p>
+                    </div>
+                </a>
+            </div>`;
+}
+
+// Devuelve tarjetas con la informacion de los elementos
+function cardsLoad(data, imageRoute, route) {
+    let container = "";
+    let cardInformation = "";
+
+    data.forEach((element) => {
+        cardInformation = cardInformationRetrieve(element, imageRoute, route, false);
+        container += `<article>${cardInformation}</article>`;
+    });
+
+    return container;
+}
