@@ -15,12 +15,14 @@
     --link-color: rgb(0, 220, 220);
 }
 
+a {
+    height: 100%;
+}
+
 /*---------- CLASES */
 .image-Card {
-    height: 50vh;
     mask: url('/Mask.svg') no-repeat left bottom/cover;
-    max-height: 300px;
-    max-width: 250px;
+    height: 100%;
     object-fit: cover;
     overflow: hidden;
     position: relative;
@@ -32,7 +34,7 @@
     border-radius: 10px;
     bottom: 0%;
     color: var(--light-color);
-    height: 11.8%;
+    height: 11%;
     left: 0%;
     padding: 0.3rem 0.6rem !important;
     position: absolute;
@@ -41,12 +43,13 @@
 
 .type-Image-Card {
     position: relative;
+    height: 82%;
 }
 
 /*---------- ID */
 /*---------- COMBINADOS Y PSEUDOCLASES */
 .image-Card img {
-    height: auto;
+    height: 100%;
     object-fit: cover;
     width: 100%;
 }

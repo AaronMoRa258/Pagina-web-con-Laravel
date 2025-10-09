@@ -12,19 +12,21 @@ class AnimeController extends Controller {
     // Cargar lista de animes
     public function index() {
         return Inertia::render("Index", [
-            "api" => "",
+            "api" => 0,
+            "login" => Auth::check(),
             "query" => "",
             "type" => "anime",
-            "login" => Auth::check()
         ]);
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada
     public function query($query) {
-        $api = 1;
-        $type = "anime";
-        
-        return view("index", compact("api", "query", "type"));
+        return Inertia::render("Index", [
+            "api" => 1,
+            "login" => Auth::check(),
+            "query" => $query,
+            "type" => "anime",
+        ]);
     }
 
     // Cargar informacion relativa al anime especificado
@@ -47,6 +49,14 @@ class AnimeController extends Controller {
         $image = $anime->image;
         $name = $anime->name;
         
-        return view("anime", compact("description", "extraInfo", "id", "image", "name", "chaptersNumber"));
+        return Inertia::render("Anime", [
+            "chaptersNumber" => $chaptersNumber,
+            "description" => $description,
+            "extraInfo" => $extraInfo,
+            "id" => $id,
+            "image" => $image,
+            "login" => Auth::check(),
+            "name" => $name,
+        ]);
     }
 }

@@ -15,14 +15,6 @@
     --link-color: rgb(0, 220, 220);
 }
 
-body {
-    display: grid !important;
-    grid-template-areas: 'Cabecera' 
-    'Menu' 
-    'Contenido_1' 
-    'PiePag';
-}
-
 /*---------- CLASES */
 .content {
     display: grid;
@@ -32,8 +24,9 @@ body {
 }
 
 .my-Card {
-    height: 95% !important;
+    height: 430px;
     max-width: 250px;
+    min-width: 230px;
 }
 
 .page-Changer {
@@ -44,6 +37,14 @@ body {
 }
 
 /*---------- ID */
+#app {
+    display: grid !important;
+    grid-template-areas: 'Cabecera' 
+    'Menu' 
+    'Contenido_1' 
+    'PiePag';
+}
+
 #main {
     grid-area: Contenido_1;
 }

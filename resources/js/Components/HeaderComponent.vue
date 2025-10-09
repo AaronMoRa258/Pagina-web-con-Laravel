@@ -8,7 +8,7 @@
                 <h1 class="light-Color page-Name">Pagina Web Hecha Con Laravel</h1>
                 <div class="search">
                     <input class="form-control p-1" id="input-Search" placeholder="Buscar" type="text">
-                    <button class="btn btn-secondary" id="button-Search" onclick="" type="button"><i
+                    <button class="btn btn-secondary" id="button-Search" @click="search()" type="button"><i
                             class="bi bi-search"></i></button>
                 </div>
                 <div class="user">
@@ -21,6 +21,10 @@
         </div>
     </header>
 </template>
+<script setup>
+import { search } from '../../../public/JS/main';
+</script>
+
 <script>
 import { ROOT_ROUTE } from '../../../public/JS/routes.js';
 

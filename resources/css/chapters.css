@@ -23,16 +23,6 @@ aside {
     min-width: 240px;
 }
 
-body {
-    display: grid;
-    grid-template-areas: 'Cabecera Cabecera' 
-    'Menu Menu' 
-    'Contenido_1 Aside'
-    'Contenido_2 Contenido_2'
-    'PiePag PiePag';
-    grid-template-columns: 1fr 265px; 
-}
-
 nav {
     display: none !important;
 }
@@ -85,6 +75,16 @@ nav {
 }
 
 /*---------- ID */
+#app {
+    display: grid;
+    grid-template-areas: 'Cabecera Cabecera' 
+    'Menu Menu' 
+    'Contenido_1 Aside'
+    'Contenido_2 Contenido_2'
+    'PiePag PiePag';
+    grid-template-columns: 1fr 265px; 
+}
+
 #chapter-Changer {
     display: flex;
     width: 100%;

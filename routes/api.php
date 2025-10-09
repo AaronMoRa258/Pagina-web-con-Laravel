@@ -21,7 +21,7 @@ Route::post("/animes/bookmarks/store", [ApiBookmarkAnimeController::class, "stor
 Route::post("/animes/bookmarks/destroy", [ApiBookmarkAnimeController::class, "destroy"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario 
-Route::get("/animes/bookmarks/check/{user}/{anime_Id}", [ApiBookmarkAnimeController::class, "show"]);
+Route::get("/animes/bookmarks/check/{user}/{animeId}", [ApiBookmarkAnimeController::class, "show"]);
 
 // Carga marcadores del usuario
 Route::get("/animes/bookmarks/load/{user}/{limit}", [ApiBookmarkAnimeController::class, "index"]);
@@ -36,13 +36,13 @@ Route::post("/animes/lists/destroy", [ApiPersonalListAnimeController::class, "de
 Route::get("/animes/lists/load/{user}", [ApiPersonalListAnimeController::class, "index"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario
-Route::get("/animes/lists/check/{user}/{anime_Id}", [ApiPersonalListAnimeController::class, "show"]);
+Route::get("/animes/lists/check/{user}/{animeId}", [ApiPersonalListAnimeController::class, "show"]);
 
 // Carga animes para resultados de busqueda
 Route::get("/animes/search/{query}", [ApiAnimeController::class, "search"]);
 
 // Carga capitulo del anime seleccionado
-Route::get("/animes/{anime_Id}/{chapter_Id}", [ApiLinkAnimeController::class, "show"]);
+Route::get("/animes/{animeId}/{chapterId}", [ApiLinkAnimeController::class, "show"]);
 
 
 
@@ -50,7 +50,7 @@ Route::get("/animes/{anime_Id}/{chapter_Id}", [ApiLinkAnimeController::class, "s
 Route::get("/comics", [ApiComicController::class, "index"]);
 
 // Carga comic seleccionado
-Route::get("/comics/{comic_Id}", [ApiLinkComicController::class, "show"]);
+Route::get("/comics/{comicId}", [ApiLinkComicController::class, "show"]);
 
 // Agrega anime a marcadores del usuario
 Route::post("/comics/bookmarks/store", [ApiBookmarkComicController::class, "store"]);
@@ -59,7 +59,7 @@ Route::post("/comics/bookmarks/store", [ApiBookmarkComicController::class, "stor
 Route::post("/comics/bookmarks/destroy", [ApiBookmarkComicController::class, "destroy"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario 
-Route::get("/comics/bookmarks/check/{user}/{comic_Id}", [ApiBookmarkComicController::class, "show"]);
+Route::get("/comics/bookmarks/check/{user}/{comicId}", [ApiBookmarkComicController::class, "show"]);
 
 // Carga marcadores del usuario
 Route::get("/comics/bookmarks/load/{user}/{limit}", [ApiBookmarkComicController::class, "index"]);
@@ -74,7 +74,7 @@ Route::post("/comics/lists/destroy", [ApiPersonalListComicController::class, "de
 Route::get("/comics/lists/load/{user}", [ApiPersonalListComicController::class, "index"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario
-Route::get("/comics/lists/check/{user}/{comic_Id}", [ApiPersonalListComicController::class, "show"]);
+Route::get("/comics/lists/check/{user}/{comicId}", [ApiPersonalListComicController::class, "show"]);
 
 // Carga comics para resultados de busqueda
 Route::get("/comics/search/{query}", [ApiComicController::class, "search"]);

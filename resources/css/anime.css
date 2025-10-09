@@ -15,14 +15,6 @@
     --link-color: rgb(0, 220, 220);
 }
 
-body {
-    display: grid;
-    grid-template-areas: 'Cabecera' 
-    'Menu' 
-    'Contenido_1' 
-    'PiePag';
-}
-
 p {
     font-size: 1rem !important;
 }
@@ -34,6 +26,14 @@ p {
 }
 
 /*---------- ID */
+#app {
+    display: grid;
+    grid-template-areas: 'Cabecera' 
+    'Menu' 
+    'Contenido_1' 
+    'PiePag';
+}
+
 #main {
     grid-area: Contenido_1;
 }

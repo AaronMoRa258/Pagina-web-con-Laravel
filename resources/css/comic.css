@@ -15,14 +15,6 @@
     --link-color: rgb(0, 220, 220);
 }
 
-body {
-    display: grid;
-    grid-template-areas: 'Cabecera' 
-    'Contenido_1'
-    'Contenido_2' 
-    'PiePag';
-}
-
 img {
     border: var(--bg-card) 3px solid;
     width: 80%;
@@ -30,6 +22,14 @@ img {
 
 /*---------- CLASES */
 /*---------- ID */
+#app {
+    display: grid;
+    grid-template-areas: 'Cabecera' 
+    'Contenido_1'
+    'Contenido_2' 
+    'PiePag';
+}
+
 #images {
     display: grid;
     justify-items: center;

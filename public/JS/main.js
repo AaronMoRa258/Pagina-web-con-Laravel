@@ -1,22 +1,13 @@
 // Obtiene elementos para su posterior modificacion
-const CONTAINER_ELEMENTS = document.getElementById("container-Elements");
-const ELEMENT_IMAGE = document.getElementById("element-Image");
-const ELEMENT_NAME = document.getElementById("element-Name");
-const ELEMENT_DESCRIPTION = document.getElementById("element-Description");
-const EXTRA_INFO = document.getElementById("extra-Info");
-const INPUT_SEARCH = document.getElementById("input-Search");
-const USER_ICON = document.getElementById("user-Icon");
-const USER_NAME = document.getElementById("user-Name");
+const USER_NAME = document.getElementById('user-Name');
 
 // Variables a utilizar
-let apiRoute = "";
 let page = 1;
-let query = "";
-let type = "";
+let type = '';
 
 // Consulta api para recuperar elementos segun ruta especificada
-export async function apiQuery(apiRoute, query, page) {
-    const res = await fetch(`${apiRoute[0]}/${query}?P=${page}`);
+export async function apiQuery(apiRoute, index, page, query) {
+    const res = await fetch(`${apiRoute[index]}/${query}?P=${page}`);
     const data = await res.json();
     const noMore = !data || data.length < 15;
 
@@ -26,112 +17,72 @@ export async function apiQuery(apiRoute, query, page) {
 
     return {
         items: data,
-        hasMore: !noMore
+        hasMore: !noMore,
     };
 }
 
 // Cambiar icono de usuario segun haya o no iniciado sesion
 export function authCheck(login) {
-    document.getElementById("user-Icon").classList.add((login) ? "bi-person-fill" : "bi-person");
+    document
+        .getElementById('user-Icon')
+        .classList.add(login ? 'bi-person-fill' : 'bi-person');
 }
 
 // Cargar informacion principal del elemento (nombre, descripcion, ...)
-function elementInfoLoad(description, extraInfo, image, name) {
-    if (image != "") {
-        ELEMENT_IMAGE.innerHTML = ` <img alt="${name}" class="card-img img-fluid" src="${(image.includes("http") ? image : ANIME_IMAGE_ROUTE.concat("/", image))}"/>`;
+export function elementInfoLoad(
+    chapterId,
+    description,
+    extraInfo,
+    image,
+    name,
+    isChapter,
+    IMAGE_ROUTE,
+) {
+    if (isChapter) {
+        document.getElementById('chapter-Number').innerHTML =
+            `Episodio ${chapterId}`;
+    } else if (image != '') {
+        document.getElementById('element-Image').innerHTML =
+            ` <img alt="${name}" class="card-img img-fluid" src="${image.includes('http') ? image : '/'.concat(IMAGE_ROUTE, '/', image)}"/>`;
     }
-    
-    ELEMENT_NAME.innerHTML = `${name}`;
-    ELEMENT_DESCRIPTION.innerHTML = `Sinopsis: ${description}`;
-    EXTRA_INFO.innerHTML = `${extraInfo}`;
-}
 
-// Cambiar a la pagina anterior
-function pageBefore() {
-    if (page <= 1) {
-        return;
-    }
-
-    page--;
-
-    switch (type) {
-        case "comic":
-            apiQuery("", COMIC_ROUTE, "Comic");
-            break;
-        default:
-            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
-            break;
-    }
-}
-
-// Cambiar a la pagina siguiente
-function pageNext() {
-    page++;
-    
-    switch (type) {
-        case "comic":
-            apiQuery("", COMIC_ROUTE, "Comic");
-            break;
-        default:
-            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
-            break;
-    }
+    document.getElementById('element-Name').innerHTML = `${name}`;
+    document.getElementById('element-Description').innerHTML =
+        `Sinopsis: ${description}`;
+    document.getElementById('extra-Info').innerHTML = `${extraInfo}`;
 }
 
 // Realiza busqueda de cadena ingresada
-function search() {
-    if (INPUT_SEARCH.value != "") {
-        switch(window.location.href) {
-            case COMIC_ROUTE:
-                window.location.href = `/comics/search/${INPUT_SEARCH.value}`;
-                break;
-            default: 
-                window.location.href = `/animes/search/${INPUT_SEARCH.value}`;
-                break;
+export function search(COMIC_ROUTE) {
+    const INPUT_SEARCH = document.getElementById('input-Search');
+
+    if (INPUT_SEARCH.value != '') {
+        if (window.location.href.includes('comic')) {
+            window.location.href = `/comics/search/${INPUT_SEARCH.value}`;
+        } else {
+            window.location.href = `/animes/search/${INPUT_SEARCH.value}`;
         }
     }
-}
-
-// Cerrar sesion o mandar a formulario de login segun sea el caso
-function signUpLogin(val) {
-    let user = USER_NAME.innerHTML.trim();
-    
-    if (user != "Iniciar Sesión") {
-        window.location.href = `/user/${user}`;
-        return;
-    }
-    
-    window.location.href = val;
 }
 
 // Devuelve el titulo con maximo 2 lineas y 24 caracteres por linea
 function titleLengthDefine(title) {
     let length = 0;
-    let newTitle = "";
-    let words = title.split(" ");
+    let newTitle = '';
+    let words = title.split(' ');
 
-    words.some(word => {
+    words.some((word) => {
         length += word.length + 1;
 
         if (length <= 36) {
-            newTitle += word + " ";
-        } else if (!newTitle.includes("...")) {
-            newTitle += " ...";
+            newTitle += word + ' ';
+        } else if (!newTitle.includes('...')) {
+            newTitle += ' ...';
         }
     });
 
     return newTitle;
 }
-
-
-
-
-
-
-
-
-
-
 
 // Evento de teclado para mandar a llamar la funcion de busqueda
 /* INPUT_SEARCH.addEventListener("keypress", (event) => {
@@ -143,13 +94,13 @@ function titleLengthDefine(title) {
 
 // Devuelve la informacion del elemento indicado con formato de tarjeta
 function cardInformationRetrieve(element, imageRoute, route, scroll) {
-    let extraClass = (scroll) ? "mx-2" : "w-100";
+    let extraClass = scroll ? 'mx-2' : 'w-100';
 
     return `<div class="card card-Background my-Card my-2 p-2 ${extraClass}" style="width: 18rem;">
-                <a href="${route.concat("/", element.id)}">
+                <a href="${route.concat('/', element.id)}">
                     <div class="type-Image-Card">
                         <div class="image-Card">
-                            <img alt="${element.name}" class="card-img" src="${imageRoute!="" ? imageRoute.concat("/", element.image) : element.front_page}">
+                            <img alt="${element.name}" class="card-img" src="${imageRoute != '' ? imageRoute.concat('/', element.image) : element.front_page}">
                         </div>
                         <p class="type">${element.type}</p>
                     </div>
@@ -163,13 +114,62 @@ function cardInformationRetrieve(element, imageRoute, route, scroll) {
 
 // Devuelve tarjetas con la informacion de los elementos
 function cardsLoad(data, imageRoute, route) {
-    let container = "";
-    let cardInformation = "";
+    let container = '';
+    let cardInformation = '';
 
     data.forEach((element) => {
-        cardInformation = cardInformationRetrieve(element, imageRoute, route, false);
+        cardInformation = cardInformationRetrieve(
+            element,
+            imageRoute,
+            route,
+            false,
+        );
         container += `<article>${cardInformation}</article>`;
     });
 
     return container;
+}
+
+// Cambiar a la pagina anterior
+function pageBefore() {
+    if (page <= 1) {
+        return;
+    }
+
+    page--;
+
+    switch (type) {
+        case 'comic':
+            apiQuery('', COMIC_ROUTE, 'Comic');
+            break;
+        default:
+            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
+            break;
+    }
+}
+
+// Cambiar a la pagina siguiente
+function pageNext() {
+    page++;
+
+    switch (type) {
+        case 'comic':
+            apiQuery('', COMIC_ROUTE, 'Comic');
+            break;
+        default:
+            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
+            break;
+    }
+}
+
+// Cerrar sesion o mandar a formulario de login segun sea el caso
+function signUpLogin(val) {
+    let user = USER_NAME.innerHTML.trim();
+
+    if (user != 'Iniciar Sesión') {
+        window.location.href = `/user/${user}`;
+        return;
+    }
+
+    window.location.href = val;
 }

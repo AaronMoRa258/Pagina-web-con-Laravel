@@ -1,5 +1,4 @@
 <template>
-
   <HeaderComponent />
   <NavComponent />
 
@@ -11,7 +10,7 @@
           <a :href="`${route}${item.id}`">
             <div class="type-Image-Card">
               <div class="image-Card">
-                <img :alt="item.name" class="card-img" :src="`${imageRoute}${item.image}`">
+                <img :alt="item.name" class="card-img" :src="`/${imageRoute}${item.image}`">
               </div>
               <p class="type">{{ item.type }}</p>
             </div>
@@ -23,6 +22,7 @@
         </div>
       </article>
     </div>
+
     <div class="page-Changer">
       <button class="btn mt-4 mx-4 p-2" :disabled="page === 1" id="before" @click="pageBefore">
         Anterior Página
@@ -32,6 +32,7 @@
       </button>
     </div>
   </section>
+
   <FooterComponent />
 </template>
 
@@ -39,16 +40,10 @@
 import FooterComponent from '../Components/FooterComponent.vue';
 import HeaderComponent from '../Components/HeaderComponent.vue';
 import NavComponent from '../Components/NavComponent.vue';
-import { ANIMES_API, COMICS_API, ANIME_ROUTE, COMIC_ROUTE, ANIME_IMAGE_ROUTE } from '../../../public/JS/routes.js';
 import { apiQuery, authCheck } from '../../../public/JS/main';
+import { ANIME_IMAGE_ROUTE, ANIME_ROUTE, COMIC_ROUTE, ANIMES_API, COMICS_API } from '../../../public/JS/routes.js';
 
 export default {
-  props: {
-    api: String,
-    query: String,
-    type: String,
-    login: Boolean
-  },
   components: {
     FooterComponent,
     HeaderComponent,
@@ -62,23 +57,10 @@ export default {
       return this.type === 'comic' ? COMIC_ROUTE : ANIME_ROUTE;
     }
   },
-  data() {
-    return {
-      page: 1,
-      items: [],
-      hasMore: true
-    };
-  },
-  mounted() {
-    authCheck(this.login); // si esta función es necesaria
-    this.loadItems();
-  },
   methods: {
     async loadItems() {
       const apiRoute = this.type === 'comic' ? COMICS_API : ANIMES_API;
-
-      // apiQuery debe retornar { items: [...], hasMore: true/false }
-      const data = await apiQuery(apiRoute, this.query, this.page);
+      const data = await apiQuery(apiRoute, this.api, this.page, this.query);
       this.items = data.items;
       this.hasMore = data.hasMore;
     },
@@ -94,7 +76,24 @@ export default {
         this.loadItems();
       }
     }
-  }
+  },
+  props: {
+    api: Number,
+    login: Boolean,
+    query: String,
+    type: String,
+  },
+  data() {
+    return {
+      hasMore: true,
+      items: [],
+      page: 1,
+    };
+  },
+  mounted() {
+    authCheck(this.login);
+    this.loadItems();
+  },
 }
 </script>
 

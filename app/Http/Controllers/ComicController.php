@@ -4,31 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ComicController extends Controller {
 
     // Cargar lista de comics
     public function index() {
-        $api = 0;
-        $query = "";
-        $type = "comic";
-
-        return view("index", compact("api", "query", "type"));
+        return Inertia::render("Index", [
+            "api" => 0,
+            "login" => Auth::check(),
+            "query" => "",
+            "type" => "comic",
+        ]);
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada
     public function query($query) {
-        $api = 1;
-        $type = "comic";
-        
-        return view("index", compact("api", "query", "type"));
+        return Inertia::render("Index", [
+            "api" => 1,
+            "login" => Auth::check(),
+            "query" => $query,
+            "type" => "comic",
+        ]);
     }
 
     // Cargar el comics especificado
     public function show($comicId) {
         // Verifica que el ID sea valido
         if (!is_numeric($comicId)) {
-            return redirect()->route("comics");
+            return redirect()->route("comics.index");
         }
 
         $comic = Comic::where("id", $comicId)->first();
@@ -42,6 +47,13 @@ class ComicController extends Controller {
         $id = $comic->id;
         $name = $comic->name;
 
-        return view("comic", compact("description", "extraInfo", "frontPage", "id", "name"));
+        return Inertia::render("Comic", [
+            "description" => $description,
+            "extraInfo" => $extraInfo,
+            "frontPage" => $frontPage,
+            "id" => $id,
+            "login" => Auth::check(),
+            "name" => $name,            
+        ]);
     }
 }
