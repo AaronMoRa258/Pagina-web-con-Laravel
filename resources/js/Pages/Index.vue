@@ -79,9 +79,9 @@ export default {
   },
   props: {
     api: Number,
-    login: Boolean,
     query: String,
     type: String,
+    userName: String,
   },
   data() {
     return {
@@ -91,7 +91,7 @@ export default {
     };
   },
   mounted() {
-    authCheck(this.login);
+    authCheck(this.userName);
     this.loadItems();
   },
 }

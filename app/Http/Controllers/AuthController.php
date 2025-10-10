@@ -7,6 +7,7 @@ use \App\Models\Sessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AuthController extends Controller {
     
@@ -36,12 +37,10 @@ class AuthController extends Controller {
         Auth::logout();
         $Request->session()->invalidate();
         $Request->session()->regenerateToken();
-
-        return redirect('/');
     }
 
     // Mostrar formulario de login
-    public function show_Login_Form() {
-        return view('login');
+    public function loginFormShow() {
+        return Inertia::render("Auth/Login");
     }
 }

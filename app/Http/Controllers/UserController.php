@@ -11,27 +11,31 @@ class UserController extends Controller {
     
     // Mostrar formulario de registro
     public function create() {
-        return view('register');
+        return Inertia::render("Auth/Register");
     }
 
     // Procesar el nuevo usuario
     public function store(Request $request) {
         $request->validate([
-            'User' => 'required|string|max:255',
-            'Nombre' => 'required|string|max:255',
-            'Email' => 'required|string|email|unique:users',
-            'Password' => 'required|string|min:6',
+            'user' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:6',
         ]);
 
         // Inserta nuevo registro a tabla de usuarios
-        user::create([
-            'User' => $request->User,
-            'Nombre' => $request->Name,
-            'Email' => $request->Email,
-            'Password' => Hash::make($request->Password),
+        $newUser = user::create([
+            'user' => $request->User,
+            'name' => $request->Name,
+            'email' => $request->Email,
+            'password' => Hash::make($request->Password),
         ]);
 
-        return redirect('/');
+        // Dispara el evento para enviar el correo
+        event(new Registered($newUser));
+        Auth::login($newUser);
+
+        return redirect()->route("verification.notice");
     }
 
     // Mostrar perfil de usuario especificado

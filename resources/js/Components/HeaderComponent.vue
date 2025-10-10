@@ -12,17 +12,32 @@
                             class="bi bi-search"></i></button>
                 </div>
                 <div class="user">
-                    <h5 class="user-Name" id="user-Name" onclick="">
-                        Iniciar Sesión
-                    </h5>
-                    <i class="bi user-Icon" id="user-Icon" onclick=""></i>
+                    <button aria-expanded='false'
+                        class="btn btn-secondary dropdown-toggle-split user-Name"
+                        data-bs-toggle='dropdown' id="user-Name" @click="signUpLogin()" type='button'>
+                        <i class="bi user-Icon" id="user-Icon"></i>
+                    </button>
+                    <ul class='dropdown-menu lists p-1'>
+                        <li class='dropdown-item list-Element p-2' onclick=''><i class='bi bi-eye pe-2'></i>Perfil</li>
+                        <li class='dropdown-item list-Element p-2' @click='logout'><i
+                                class='bi bi-bookmark-plus pe-2'></i>Cerrar Sesion</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </header>
 </template>
 <script setup>
-import { search } from '../../../public/JS/main';
+import { search, signUpLogin } from '../../../public/JS/main';
+import { router } from '@inertiajs/vue3'
+
+const logout = () => {
+  router.post('/logout', {}, {
+    onFinish: () => {
+      router.visit('/');
+    },
+  })
+}
 </script>
 
 <script>

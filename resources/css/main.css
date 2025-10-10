@@ -82,6 +82,21 @@ nav {
     color: var(--light-color) !important;
 }
 
+.list-Element {
+    background-color: transparent;
+    color: var(--light-color);
+    cursor: pointer;
+}
+
+.lists {
+    background-color: var(--bg-main);
+    border: var(--bg-card) 1px solid;
+    border-radius: 10px;
+    min-width: fit-content !important;
+    transform: translate(-6px, 68px) !important;
+    width: fit-content !important;
+}
+
 .page-Image{
     flex: 0 0 auto;
     width: fit-content;
@@ -107,12 +122,15 @@ nav {
     display: flex;
     flex: 0 0 auto;
     justify-content: end;
-    padding: 0.5rem 0.7rem !important;
     width: fit-content;
 }
 
 .user-Name {
-    padding-right: 0.5rem !important;
+    background-color: transparent !important;
+    border: none;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem !important;
 }
 
 /*---------- ID */
@@ -141,13 +159,26 @@ img:hover {
     filter: grayscale();
 }
 
+.list-Element:hover {
+    background-color: var(--bg-button-hover);
+    border-radius: 10px;
+    color: var(--light-color);
+}
+
 nav a:hover {
     background-color: var(--link-color) !important;
     border-radius: 10px;
     color: var(--dark-color) !important;
 }
 
-.user:hover {
-    background-color: var(--bg-button);
-    cursor: pointer;
+.user-Name:active {
+    background-color: var(--bg-button-hover) !important;
+}
+
+.user-Name:focus {
+    background-color: var(--bg-button-hover) !important;
+}
+
+.user-Name:hover {
+    background-color: var(--bg-button) !important;
 }

@@ -1,10 +1,3 @@
-// Obtiene elementos para su posterior modificacion
-const USER_NAME = document.getElementById('user-Name');
-
-// Variables a utilizar
-let page = 1;
-let type = '';
-
 // Consulta api para recuperar elementos segun ruta especificada
 export async function apiQuery(apiRoute, index, page, query) {
     const res = await fetch(`${apiRoute[index]}/${query}?P=${page}`);
@@ -22,10 +15,9 @@ export async function apiQuery(apiRoute, index, page, query) {
 }
 
 // Cambiar icono de usuario segun haya o no iniciado sesion
-export function authCheck(login) {
-    document
-        .getElementById('user-Icon')
-        .classList.add(login ? 'bi-person-fill' : 'bi-person');
+export function authCheck(userName) {
+    document.getElementById('user-Icon').classList.add((userName != "") ? 'bi-person-fill' : 'bi-person');
+    document.getElementById('user-Name').innerHTML += (userName != "") ? userName : 'Iniciar Sesión';
 }
 
 // Cargar informacion principal del elemento (nombre, descripcion, ...)
@@ -53,7 +45,7 @@ export function elementInfoLoad(
 }
 
 // Realiza busqueda de cadena ingresada
-export function search(COMIC_ROUTE) {
+export function search() {
     const INPUT_SEARCH = document.getElementById('input-Search');
 
     if (INPUT_SEARCH.value != '') {
@@ -62,6 +54,16 @@ export function search(COMIC_ROUTE) {
         } else {
             window.location.href = `/animes/search/${INPUT_SEARCH.value}`;
         }
+    }
+}
+
+// Cerrar sesion o mandar a formulario de login segun sea el caso
+export function signUpLogin() {
+    let userName = document.getElementById('user-Name').innerHTML.trim();
+
+    if (userName.includes('Iniciar Sesión')) {
+        window.location.href = `/login`;
+        return;
     }
 }
 
@@ -162,14 +164,3 @@ function pageNext() {
     }
 }
 
-// Cerrar sesion o mandar a formulario de login segun sea el caso
-function signUpLogin(val) {
-    let user = USER_NAME.innerHTML.trim();
-
-    if (user != 'Iniciar Sesión') {
-        window.location.href = `/user/${user}`;
-        return;
-    }
-
-    window.location.href = val;
-}

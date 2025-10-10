@@ -25,13 +25,6 @@
     --bg-login: rgba(0, 50, 50, 0.3);
 }
 
-body {
-    background-image: url('/IMG/Fondo.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 a {
     color: var(--light-color);
     text-decoration: none;
@@ -138,7 +131,6 @@ a {
     align-items: center;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
     padding: 1rem;
     width: 100%;
 }

@@ -11,21 +11,25 @@ class AnimeController extends Controller {
     
     // Cargar lista de animes
     public function index() {
+        $user = (Auth::check()) ? Auth::user()->user : "";
+
         return Inertia::render("Index", [
             "api" => 0,
-            "login" => Auth::check(),
             "query" => "",
             "type" => "anime",
+            "userName" => $user,
         ]);
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada
     public function query($query) {
+        $user = (Auth::check()) ? Auth::user()->user: "";
+
         return Inertia::render("Index", [
             "api" => 1,
-            "login" => Auth::check(),
             "query" => $query,
             "type" => "anime",
+            "userName" => $user,
         ]);
     }
 
@@ -48,6 +52,7 @@ class AnimeController extends Controller {
         $id = $anime->id;
         $image = $anime->image;
         $name = $anime->name;
+        $user = (Auth::check()) ? Auth::user()->user: "";
         
         return Inertia::render("Anime", [
             "chaptersNumber" => $chaptersNumber,
@@ -55,8 +60,8 @@ class AnimeController extends Controller {
             "extraInfo" => $extraInfo,
             "id" => $id,
             "image" => $image,
-            "login" => Auth::check(),
             "name" => $name,
+            "userName" => $user,
         ]);
     }
 }

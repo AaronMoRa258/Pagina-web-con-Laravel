@@ -17,12 +17,18 @@
                 <h5 class="Information text-center">Favor de llenar el formulario para <br> poder registrarse.</h5>
                 <div class="Login-Form">
                     <div class="Input-Wrapper">
-                        <input class="Input-Field" data-bs-title="Por favor, ingrese un nombre de usuario" data-bs-toggle="tooltip" id="User" name="User" onfocus="Hide_Toogle(1)" required type="text">
+                        <input class="Input-Field" 
+                        data-bs-title="Por favor, ingrese un nombre de usuario" 
+                        data-bs-toggle="tooltip" id="User" name="User" 
+                        onfocus="Hide_Toogle(1)" required type="text">
                         <label class="Label" for="User">Usuario</label>
                         <i class="bi bi-person-fill Icon" id="User-Icon"></i>
                     </div>
                     <div class="Input-Wrapper">
-                        <input class="Input-Field" data-bs-title="Por favor, ingrese un correo" data-bs-toggle="tooltip" id="Email" name="Email" onfocus="Hide_Toogle(2)" required type="email">
+                        <input class="Input-Field" 
+                        data-bs-title="Por favor, ingrese un correo" 
+                        data-bs-toggle="tooltip" id="Email" name="Email" 
+                        onfocus="Hide_Toogle(2)" required type="email">
                         <label class="Label" for="Email">Email</label>
                         <i class="bi bi-envelope-fill Icon" id="Email-Icon"></i>
                     </div>

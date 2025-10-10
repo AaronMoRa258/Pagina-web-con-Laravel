@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\AnimeController;
 use App\Http\Controllers\AnimeChapterController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComicController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +22,25 @@ Route::get("/comics/search/{query}", [ComicController::class, "query"])->name("c
 Route::get("/comics/{comicId}", [ComicController::class, "show"])->name("comcis.show");
 
 
+
+Route::get('/email/verify', function () {
+    return inertia('Auth/VerifyEmail'); // 👈 componente Vue
+})->middleware('auth')->name('verification.notice');
+
+// enlace que llega al correo
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('dashboard'); // 👈 o la ruta que desees
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// reenviar el correo
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Se ha enviado un nuevo enlace de verificación.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+Route::post("/logout", [AuthController::class, "logout"])->name("logout");
 
 Route::get("/dashboard", function () {
     return Inertia::render("Dashboard");
