@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Follower;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,5 +61,33 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function show(Request $request) {
+        // Realiza consulta a BD
+        $userInfo = User::where('user', $request->idUser)->first();
+        $followers = Follower::where('follow', $request->idUser)->count();
+        $following = Follower::where('user', $request->idUser)->count();
+
+        // Verifica que el usuario exista
+        if (!$userInfo) {
+            // Verifica que el usuario este autenticado (haya iniciado sesion)
+            if (Auth::user()->user == '') {
+                return redirect()->route('animes.index');
+            }
+
+            return redirect()->route('profile.show',  ['idUser' => Auth::user()->user]);
+        }
+
+        // Extrae la informacion del usuario
+        $user = $userInfo->user;
+        $name = $userInfo->name;
+
+        return Inertia::render("Profile/Show", [
+            "followers" => $followers,
+            "following" => $following,
+            "name" => $name,
+            "user" => $user,
+        ]);
     }
 }

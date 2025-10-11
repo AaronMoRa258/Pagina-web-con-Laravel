@@ -33,7 +33,7 @@ Route::post("/animes/lists/store", [ApiPersonalListAnimeController::class, "stor
 Route::post("/animes/lists/destroy", [ApiPersonalListAnimeController::class, "destroy"]);
 
 // Carga listas del usuario
-Route::get("/animes/lists/load/{user}", [ApiPersonalListAnimeController::class, "index"]);
+Route::get("/animes/lists/load/{user}/{limit}", [ApiPersonalListAnimeController::class, "index"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario
 Route::get("/animes/lists/check/{user}/{animeId}", [ApiPersonalListAnimeController::class, "show"]);
@@ -71,7 +71,7 @@ Route::post("/comics/lists/store", [ApiPersonalListComicController::class, "stor
 Route::post("/comics/lists/destroy", [ApiPersonalListComicController::class, "destroy"]);
 
 // Carga listas del usuario
-Route::get("/comics/lists/load/{user}", [ApiPersonalListComicController::class, "index"]);
+Route::get("/comics/lists/load/{user}/{limit}", [ApiPersonalListComicController::class, "index"]);
 
 // Comprueba si un anime esta en lista de marcadores del usuario
 Route::get("/comics/lists/check/{user}/{comicId}", [ApiPersonalListComicController::class, "show"]);

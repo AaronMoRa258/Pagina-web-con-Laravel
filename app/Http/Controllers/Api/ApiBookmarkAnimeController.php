@@ -22,7 +22,7 @@ class ApiBookmarkAnimeController extends Controller {
         $bookmarkList = [];
 
         if ($limit) {
-            $bookmarks = BookmarkAnime::where("user", $user)->limit(4)->get();
+            $bookmarks = BookmarkAnime::where("user", $user)->limit(5)->get();
         } else {
             $bookmarks = BookmarkAnime::where("user", $user)->get();
         }

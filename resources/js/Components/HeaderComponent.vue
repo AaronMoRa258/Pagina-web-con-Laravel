@@ -12,15 +12,19 @@
                             class="bi bi-search"></i></button>
                 </div>
                 <div class="user">
-                    <button aria-expanded='false'
-                        class="btn btn-secondary dropdown-toggle-split user-Name"
-                        data-bs-toggle='dropdown' id="user-Name" @click="signUpLogin()" type='button'>
-                        <i class="bi user-Icon" id="user-Icon"></i>
+                    <button aria-expanded='false' class="btn btn-secondary dropdown-toggle-split user-Name"
+                        data-bs-toggle='dropdown' id="user-Name" type='button' v-if="auth.user">
+                        <i class="bi bi-person-fill" id="user-Icon"></i> {{ auth.user.user }}
                     </button>
-                    <ul class='dropdown-menu lists p-1'>
-                        <li class='dropdown-item list-Element p-2' onclick=''><i class='bi bi-eye pe-2'></i>Perfil</li>
-                        <li class='dropdown-item list-Element p-2' @click='logout'><i
-                                class='bi bi-bookmark-plus pe-2'></i>Cerrar Sesion</li>
+                    <button class="btn btn-secondary user-Name" id="user-Name" @click="signUpLogin()" type='button'
+                        v-else>
+                        <i class="bi bi-person" id="user-Icon"></i> Iniciar Sesión
+                    </button>
+                    <ul class='dropdown-menu header-Lists p-1'>
+                        <li class='dropdown-item header-List-Element p-2' @click='profileShow(auth.user.user)'><i
+                                class='bi bi-person-circle pe-2'></i>Perfil</li>
+                        <li class='dropdown-item header-List-Element p-2' @click='logout'><i
+                                class='bi bi-person-fill-x pe-2'></i>Cerrar Sesion</li>
                     </ul>
                 </div>
             </div>
@@ -28,15 +32,17 @@
     </header>
 </template>
 <script setup>
-import { search, signUpLogin } from '../../../public/JS/main';
+import { profileShow, search, signUpLogin } from '../../../public/JS/main';
 import { router } from '@inertiajs/vue3'
 
+import { usePage } from '@inertiajs/vue3'
+
+const auth = usePage().props.auth
+
 const logout = () => {
-  router.post('/logout', {}, {
-    onFinish: () => {
-      router.visit('/');
-    },
-  })
+    router.post(route('logout'), {}, {
+        onSuccess: () => router.visit('/') // Fuerza recarga a la raíz
+    })
 }
 </script>
 
@@ -48,6 +54,14 @@ export default {
         rootRoute() {
             return ROOT_ROUTE;
         }
-    }
+    },
+    mounted() {
+        // Evento de teclado para mandar a llamar la funcion de busqueda
+        document.getElementById('input-Search').addEventListener("keypress", (event) => {
+            if (event.key == "Enter") {
+                search();
+            }
+        });
+    },
 }
 </script>

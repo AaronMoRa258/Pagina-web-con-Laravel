@@ -14,12 +14,6 @@ export async function apiQuery(apiRoute, index, page, query) {
     };
 }
 
-// Cambiar icono de usuario segun haya o no iniciado sesion
-export function authCheck(userName) {
-    document.getElementById('user-Icon').classList.add((userName != "") ? 'bi-person-fill' : 'bi-person');
-    document.getElementById('user-Name').innerHTML += (userName != "") ? userName : 'Iniciar Sesión';
-}
-
 // Cargar informacion principal del elemento (nombre, descripcion, ...)
 export function elementInfoLoad(
     chapterId,
@@ -44,6 +38,12 @@ export function elementInfoLoad(
     document.getElementById('extra-Info').innerHTML = `${extraInfo}`;
 }
 
+// Cerrar sesion o mandar a formulario de login segun sea el caso
+export function profileShow(idUser) {
+    window.location.href = `/profile/${idUser}`;
+    return;
+}
+
 // Realiza busqueda de cadena ingresada
 export function search() {
     const INPUT_SEARCH = document.getElementById('input-Search');
@@ -59,16 +59,12 @@ export function search() {
 
 // Cerrar sesion o mandar a formulario de login segun sea el caso
 export function signUpLogin() {
-    let userName = document.getElementById('user-Name').innerHTML.trim();
-
-    if (userName.includes('Iniciar Sesión')) {
-        window.location.href = `/login`;
-        return;
-    }
+    window.location.href = `/login`;
+    return;
 }
 
 // Devuelve el titulo con maximo 2 lineas y 24 caracteres por linea
-function titleLengthDefine(title) {
+export function titleLengthDefine(title) {
     let length = 0;
     let newTitle = '';
     let words = title.split(' ');
@@ -85,82 +81,3 @@ function titleLengthDefine(title) {
 
     return newTitle;
 }
-
-// Evento de teclado para mandar a llamar la funcion de busqueda
-/* INPUT_SEARCH.addEventListener("keypress", (event) => {
-    if (event.key == "Enter") {
-        search();
-    }
-});
- */
-
-// Devuelve la informacion del elemento indicado con formato de tarjeta
-function cardInformationRetrieve(element, imageRoute, route, scroll) {
-    let extraClass = scroll ? 'mx-2' : 'w-100';
-
-    return `<div class="card card-Background my-Card my-2 p-2 ${extraClass}" style="width: 18rem;">
-                <a href="${route.concat('/', element.id)}">
-                    <div class="type-Image-Card">
-                        <div class="image-Card">
-                            <img alt="${element.name}" class="card-img" src="${imageRoute != '' ? imageRoute.concat('/', element.image) : element.front_page}">
-                        </div>
-                        <p class="type">${element.type}</p>
-                    </div>
-                        
-                    <div class="card-body">
-                        <p class="fs-6 mt-2 mx-3 text-center">${titleLengthDefine(element.name)}</p>
-                    </div>
-                </a>
-            </div>`;
-}
-
-// Devuelve tarjetas con la informacion de los elementos
-function cardsLoad(data, imageRoute, route) {
-    let container = '';
-    let cardInformation = '';
-
-    data.forEach((element) => {
-        cardInformation = cardInformationRetrieve(
-            element,
-            imageRoute,
-            route,
-            false,
-        );
-        container += `<article>${cardInformation}</article>`;
-    });
-
-    return container;
-}
-
-// Cambiar a la pagina anterior
-function pageBefore() {
-    if (page <= 1) {
-        return;
-    }
-
-    page--;
-
-    switch (type) {
-        case 'comic':
-            apiQuery('', COMIC_ROUTE, 'Comic');
-            break;
-        default:
-            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
-            break;
-    }
-}
-
-// Cambiar a la pagina siguiente
-function pageNext() {
-    page++;
-
-    switch (type) {
-        case 'comic':
-            apiQuery('', COMIC_ROUTE, 'Comic');
-            break;
-        default:
-            apiQuery(ANIME_IMAGE_ROUTE, ANIME_ROUTE);
-            break;
-    }
-}
-

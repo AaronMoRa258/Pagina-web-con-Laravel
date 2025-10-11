@@ -15,15 +15,6 @@
     --link-color: rgb(0, 220, 220);
 }
 
-body {
-    display: grid;
-    grid-template-areas: 'Cabecera' 
-    'Contenido_1'
-    'Menu' 
-    'Contenido_2' 
-    'PiePag';
-}
-
 /*---------- CLASES */
 .active {
     border-bottom: var(--bg-main) 5px solid;
@@ -31,13 +22,14 @@ body {
 }
 
 .my-Card {
-    height: 95% !important;
+    height: 430px;
     max-width: 250px;
+    min-width: 230px;
 }
 
 .elements-List {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     justify-items: center;
     overflow-x: auto;
 }
@@ -56,6 +48,15 @@ body {
 }
 
 /*---------- ID */
+#app {
+    display: grid;
+    grid-template-areas: 'Cabecera' 
+    'Contenido_1'
+    'Menu' 
+    'Contenido_2' 
+    'PiePag';
+}
+
 #main {
     display: grid;
     grid-area: Contenido_1;

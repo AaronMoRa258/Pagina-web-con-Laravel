@@ -12,7 +12,7 @@ class ApiPersonalListAnimeController extends Controller {
     
     // Obtiene y devuelve elementos de lista indicada
     protected function getElementsList($list, $user) {
-        $query_Results = PersonalListAnime::where("user", $user)->where("list", $list)->limit(4)->get();
+        $query_Results = PersonalListAnime::where("user", $user)->where("list", $list)->limit(5)->get();
         $new_List = [];
 
         foreach($query_Results as $element) {

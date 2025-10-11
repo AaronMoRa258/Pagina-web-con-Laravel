@@ -49,6 +49,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($newUser);
 
-        return redirect()->route("verification.notice");
+        return redirect()->route("animes.index");
     }
 }

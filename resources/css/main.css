@@ -82,13 +82,13 @@ nav {
     color: var(--light-color) !important;
 }
 
-.list-Element {
+.header-List-Element {
     background-color: transparent;
     color: var(--light-color);
     cursor: pointer;
 }
 
-.lists {
+.header-Lists {
     background-color: var(--bg-main);
     border: var(--bg-card) 1px solid;
     border-radius: 10px;
@@ -159,7 +159,7 @@ img:hover {
     filter: grayscale();
 }
 
-.list-Element:hover {
+.header-List-Element:hover {
     background-color: var(--bg-button-hover);
     border-radius: 10px;
     color: var(--light-color);

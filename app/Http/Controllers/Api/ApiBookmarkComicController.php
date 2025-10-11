@@ -22,7 +22,7 @@ class ApiBookmarkComicController extends Controller {
         $bookmarkList = [];
 
         if ($limit) {
-            $bookmarks = BookmarkComic::where("user", $user)->limit(4)->get();
+            $bookmarks = BookmarkComic::where("user", $user)->limit(5)->get();
         } else {
             $bookmarks = BookmarkComic::where("user", $user)->get();
         }

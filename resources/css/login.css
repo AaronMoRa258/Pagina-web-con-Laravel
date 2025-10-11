@@ -65,13 +65,23 @@ a {
     font-weight: 600;
     padding: 0.6rem;
     transition: 0.3s;
-    width: 100%;
+    width: fit-content;
 }
 
 .Input-Wrapper {
+    align-items: center;
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+.Inputs {
+    display: grid;
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    gap: 1rem;
+    grid-template-areas: "Campo_1 Campo_2"
+    "Campo_3 Campo_3"
+    "Campo_4 Campo_5";
 }
 
 .Label {
@@ -123,8 +133,19 @@ a {
     position: relative;
 }
 
+.Login-Register {
+    color: var(--bg-button);
+}
+
 .Register {
     text-align: center;
+}
+
+.Remember {
+    align-items: center;
+    display: flex;
+    color: var(--light-color);
+    gap: 0.25rem;
 }
 
 .Wrapper {
@@ -136,6 +157,30 @@ a {
 }
 
 /*---------- ID */
+#Confirm-Password {
+    grid-area: Campo_5;
+}
+
+#Email {
+    grid-area: Campo_3;
+}
+
+#Name {
+    grid-area: Campo_1;
+}
+
+#Password {
+    grid-area: Campo_4;
+}
+
+#Remember-Me:checked {
+    background-color: var(--bg-button);
+}
+
+#User {
+    grid-area: Campo_2;
+}
+
 /*---------- COMBINADOS Y PSEUDOCLASES */
 a:hover {
     text-decoration: underline;

@@ -40,7 +40,7 @@
 import FooterComponent from '../Components/FooterComponent.vue';
 import HeaderComponent from '../Components/HeaderComponent.vue';
 import NavComponent from '../Components/NavComponent.vue';
-import { apiQuery, authCheck } from '../../../public/JS/main';
+import { apiQuery } from '../../../public/JS/main';
 import { ANIME_IMAGE_ROUTE, ANIME_ROUTE, COMIC_ROUTE, ANIMES_API, COMICS_API } from '../../../public/JS/routes.js';
 
 export default {
@@ -91,7 +91,6 @@ export default {
     };
   },
   mounted() {
-    authCheck(this.userName);
     this.loadItems();
   },
 }

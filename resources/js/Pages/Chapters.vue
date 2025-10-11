@@ -53,7 +53,7 @@ import ElementInfoComponent from '../Components/ElementInfoComponent.vue';
 import FooterComponent from '../Components/FooterComponent.vue';
 import HeaderComponent from '../Components/HeaderComponent.vue';
 import { chapterLoad } from '../../../public/JS/chapters';
-import { authCheck, elementInfoLoad } from '../../../public/JS/main';
+import { elementInfoLoad } from '../../../public/JS/main';
 import { ANIME_IMAGE_ROUTE, ANIME_ROUTE, ANIMES_API } from '../../../public/JS/routes.js';
 
 export default {
@@ -86,7 +86,6 @@ export default {
         };
     },
     mounted() {
-        authCheck(this.login);
         elementInfoLoad(this.chapterId, this.description, this.extraInfo, "", this.name, true, ANIME_IMAGE_ROUTE);
         this.animeLoad();
     },
