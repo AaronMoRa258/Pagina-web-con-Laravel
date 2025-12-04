@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Anime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AnimeChapterController extends Controller {
 
@@ -35,6 +37,14 @@ class AnimeChapterController extends Controller {
         $id = $anime->id;
         $name = $anime->name;
         
-        return view("chapters", compact("chapterId", "description", "extraInfo", "id", "name", "chaptersNumber"));
+        return Inertia::render("Chapters", [
+            "chapterId" => $chapterId,
+            "chaptersNumber" => $chaptersNumber,
+            "description" => $description,
+            "extraInfo" => $extraInfo,
+            "id" => $id,
+            "login" => Auth::check(),
+            "name" => $name,
+        ]);
     }
 }

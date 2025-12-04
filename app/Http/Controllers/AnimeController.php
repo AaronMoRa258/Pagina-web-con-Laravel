@@ -4,24 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Anime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AnimeController extends Controller {
     
     // Cargar lista de animes
     public function index() {
-        $api = 0;
-        $query = "";
-        $type = "anime";
+        $user = (Auth::check()) ? Auth::user()->user : "";
 
-        return view("index", compact("api", "query", "type"));
+        return Inertia::render("Index", [
+            "api" => 0,
+            "query" => "",
+            "type" => "anime",
+            "userName" => $user,
+        ]);
     }
 
     // Cargar lista de resultados de acuerdo a la busqueda realizada
     public function query($query) {
-        $api = 1;
-        $type = "anime";
-        
-        return view("index", compact("api", "query", "type"));
+        $user = (Auth::check()) ? Auth::user()->user: "";
+
+        return Inertia::render("Index", [
+            "api" => 1,
+            "query" => $query,
+            "type" => "anime",
+            "userName" => $user,
+        ]);
     }
 
     // Cargar informacion relativa al anime especificado
@@ -43,7 +52,16 @@ class AnimeController extends Controller {
         $id = $anime->id;
         $image = $anime->image;
         $name = $anime->name;
+        $user = (Auth::check()) ? Auth::user()->user: "";
         
-        return view("anime", compact("description", "extraInfo", "id", "image", "name", "chaptersNumber"));
+        return Inertia::render("Anime", [
+            "chaptersNumber" => $chaptersNumber,
+            "description" => $description,
+            "extraInfo" => $extraInfo,
+            "id" => $id,
+            "image" => $image,
+            "name" => $name,
+            "userName" => $user,
+        ]);
     }
 }

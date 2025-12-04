@@ -1,65 +1,52 @@
 <?php
 
-use App\Http\Controllers\AnimeChapterController;
 use App\Http\Controllers\AnimeController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnimeChapterController;
 use App\Http\Controllers\ComicController;
-use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-// Muestra pagina principal (Lista de animes)
 Route::get("/", [AnimeController::class, "index"])->name("animes.index");
-
-// Muestra animes cuyo nombre contiene la cadena buscada
-Route::get("/animes/search/{query}", [AnimeController::class, "query"])->name("animes.search");
-
-// Muestra informacion sobre el anime seleccionado
-Route::get("/animes/{id_Anime}", [AnimeController::class, "show"])->name("animes.show");
+Route::get("/animes/search/{query}", [AnimeController::class, "query"])->name("animes.query");
+Route::get("/animes/{animeId}", [AnimeController::class, "show"])->name("animes.show");
+Route::get("/animes/{animeId}/cap-{chapterId}", [AnimeChapterController::class, "show"])->name("chapters.show");
 
 
 
-// Muestra pagina principal de comics
-Route::get("/comics", [ComicController::class, "index"])->name("comics.index");
-
-// Muestra comics cuyo nombre contiene la cadena buscada
-Route::get("/comics/search/{query}", [ComicController::class, "query"])->name("comics.search");
-
-// Muestra el comic seleccionado
-Route::get("/comics/{id_Comic}", [ComicController::class, "show"])->name("comics.show");
+Route::get("/comics", [ComicController::class, "index"])->name("comcis.index");
+Route::get("/comics/search/{query}", [ComicController::class, "query"])->name("comics.query");
+Route::get("/comics/{comicId}", [ComicController::class, "show"])->name("comics.show");
 
 
 
-// Muestra formulario de inicio de sesión
-Route::get("/login", [AuthController::class, "show_Login_Form"])->name("form");
+Route::get('/email/verify', function () {
+    return inertia('Auth/VerifyEmail'); // 👈 componente Vue
+})->middleware('auth')->name('verification.notice');
 
-// Envia datos de inicio de sesión
-Route::post("/login", [AuthController::class, "login"])->name("login_Submit");
+// enlace que llega al correo
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('dashboard'); // 👈 o la ruta que desees
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
-
-
-// Cierra sesión
-Route::get("/logout", [AuthController::class, "logout"])->name("logout");
-
-
-
-// Muestra el formulario de registro
-Route::get("/register", [UserController::class, "create"])->name("register");
-
-
-
-// Envia datos para la creacion del usuario
-Route::post("/user/store", [UserController::class, "store"])->name("user_store");
+// reenviar el correo
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Se ha enviado un nuevo enlace de verificación.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
 
-// Presentar el archivo de video seleccionado
-Route::get("/{Id_Anime}/cap-{Chapter}", [AnimeChapterController::class, "show"])->name("chapters.show");
-
-
-
-// Proteger rutas con middleware de autenticación para evitar que usuario no logeados accedan a ellas
-Route::middleware(["auth"])->group(function () {
-    // Muestra perfil de usuario logeado
-    Route::get("/user/{User}", [UserController::class, "user"])->name("profile");
+Route::middleware("auth")->group(function () {
+    Route::get("/profile", [ProfileController::class, "edit"])->name("profile.edit");
+    Route::get("/profile/{idUser}", [ProfileController::class, "show"])->name("profile.show");
+    Route::patch("/profile", [ProfileController::class, "update"])->name("profile.update");
+    Route::delete("/profile", [ProfileController::class, "destroy"])->name("profile.destroy");
 });
+
+require __DIR__."/auth.php";
